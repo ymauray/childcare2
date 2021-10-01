@@ -17,7 +17,7 @@ class _FolderFormState extends State<FolderForm> {
 
   @override
   void didChangeDependencies() {
-    _argument = ModalRoute.of(context())!.settings.arguments as Folder?;
+    _argument = ModalRoute.of(context)!.settings.arguments as Folder?;
     _folder = _argument == null ? Folder() : Folder.clone(_argument!);
     super.didChangeDependencies();
   }
@@ -227,7 +227,7 @@ class NullableBooleanFormField extends FormField<bool?> {
             initialValue: initialValue,
             autovalidateMode: autovalidateMode,
             builder: (FormFieldState<bool?> state) {
-              final t = Theme.of(state.context());
+              final t = Theme.of(state.context);
               return Column(
                 children: [
                   Row(children: [

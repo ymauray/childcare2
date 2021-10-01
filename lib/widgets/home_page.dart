@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<bool?> _showConfirmationDialog(Folder folder) async {
     return showDialog<bool>(
-      context: context(),
+      context: context,
       barrierDismissible: false,
       builder: (context) {
         final i18n = ChildCareLocalizations.of(context);
