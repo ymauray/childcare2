@@ -4,12 +4,14 @@ class OutlinedToggleButton extends StatefulWidget {
   final Widget child;
   final bool isSelected;
   final VoidCallback onPressed;
+  final EdgeInsets padding;
 
   const OutlinedToggleButton({
     Key? key,
     required this.child,
     required this.isSelected,
     required this.onPressed,
+    this.padding = EdgeInsets.zero,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class _OutlinedToggleButtonState extends State<OutlinedToggleButton> {
 
     return OutlinedButton(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 21, 8, 21),
+        padding: widget.padding,
         child: widget.child,
       ),
       onPressed: () {

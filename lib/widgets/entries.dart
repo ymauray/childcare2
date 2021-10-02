@@ -135,6 +135,7 @@ class _EntriesState extends State<Entries> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           dateSelector(i18n, context),
           const SizedBox(
@@ -156,7 +157,7 @@ class _EntriesState extends State<Entries> {
       child: DropdownButtonFormField<int>(
         focusNode: _minutesFocusNode,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(12, 16, 12, 16),
+          contentPadding: const EdgeInsets.fromLTRB(12, 16, 12, 8),
           label: Text(i18n.t('Minutes')),
         ),
         items: [0, 15, 30, 45].map((value) => DropdownMenuItem(value: value, child: Text("$value"))).toList(),
@@ -175,7 +176,7 @@ class _EntriesState extends State<Entries> {
       child: DropdownButtonFormField<int>(
         focusNode: _hoursFocusNode,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(12, 16, 12, 16),
+          contentPadding: const EdgeInsets.fromLTRB(12, 16, 12, 8),
           label: Text(i18n.t('Hours')),
         ),
         items: [0, 1, 2, 3, 4, 5, 6, 7, 8].map((value) => DropdownMenuItem(value: value, child: Text("$value"))).toList(),
@@ -194,7 +195,6 @@ class _EntriesState extends State<Entries> {
       child: TextFormField(
         decoration: InputDecoration(
           label: Text(i18n.t('Date')),
-          suffixIcon: const Icon(Icons.calendar_today),
         ),
         keyboardType: TextInputType.none,
         showCursor: false,
