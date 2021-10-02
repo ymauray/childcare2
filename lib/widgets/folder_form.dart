@@ -101,7 +101,6 @@ class _FolderFormState extends State<FolderForm> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: TextFormField(
-        keyboardType: TextInputType.name,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           icon: const Icon(Icons.people),
@@ -151,7 +150,6 @@ class _FolderFormState extends State<FolderForm> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: TextFormField(
-        keyboardType: TextInputType.name,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           icon: const SizedBox(height: 24, width: 24),
@@ -169,7 +167,6 @@ class _FolderFormState extends State<FolderForm> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: TextFormField(
-        keyboardType: TextInputType.name,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           icon: const Icon(Icons.child_care),

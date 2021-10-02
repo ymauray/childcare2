@@ -90,3 +90,6 @@ msgstr "Informations diverses"
 
 msgid "Please select one option"
 msgstr "Veuillez choisir une option"
+
+msgid "First name should not be empty."
+msgstr "Le prénom doit être renseigné."

@@ -90,3 +90,6 @@ msgstr ""
 
 msgid "Please select one option"
 msgstr ""
+
+msgid "First name should not be empty."
+msgstr ""

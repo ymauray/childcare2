@@ -23,7 +23,7 @@ class _OutlinedToggleButtonState extends State<OutlinedToggleButton> {
 
     return OutlinedButton(
       child: Padding(
-        padding: const EdgeInsets.all(21),
+        padding: const EdgeInsets.fromLTRB(8, 21, 8, 21),
         child: widget.child,
       ),
       onPressed: () {
