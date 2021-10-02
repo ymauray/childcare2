@@ -11,7 +11,7 @@ class DatabaseUtils {
     //deleteDatabase(databasePath);
     _database = await openDatabase(
       databasePath,
-      version: 3,
+      version: 6,
       onCreate: (db, version) {
         _create(db);
         for (var i = 2; i <= version; i++) {
@@ -53,6 +53,24 @@ class DatabaseUtils {
     if (version == 3) {
       await db.execute('''
       ALTER TABLE folder ADD preschool INTEGER
+      ''');
+    }
+
+    if (version == 4) {
+      await db.execute('''
+      ALTER TABLE folder ADD allergies TEXT
+      ''');
+    }
+
+    if (version == 5) {
+      await db.execute('''
+      ALTER TABLE folder ADD phoneNumber TEXT
+      ''');
+    }
+
+    if (version == 6) {
+      await db.execute('''
+      ALTER TABLE folder ADD misc TEXT
       ''');
     }
   }

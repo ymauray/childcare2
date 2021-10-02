@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Child Care"
-msgstr "Garde d'Enfants"
+msgstr "Garde d'enfants"
 
 msgid "Settings"
 msgstr "Paramètres"
@@ -72,3 +72,21 @@ msgstr "Pré-scolaire"
 
 msgid "Kindergarten"
 msgstr "Parascolaire"
+
+msgid "Allergies"
+msgstr "Allergies"
+
+msgid "No known allergies"
+msgstr "Pas d'allergies connues"
+
+msgid "Known allergies"
+msgstr "Allergies connues"
+
+msgid "Phone number"
+msgstr "Téléphone"
+
+msgid "Misc. information"
+msgstr "Informations diverses"
+
+msgid "Please select one option"
+msgstr "Veuillez choisir une option"

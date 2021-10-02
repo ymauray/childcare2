@@ -66,9 +66,12 @@ class _FolderFormState extends State<FolderForm> {
               childFirstName(i18n),
               childLastName(i18n),
               childBirthDate(context, i18n),
-              priceRange(i18n),
+              preschoolStatus(i18n),
+              allergies(i18n),
               parentsFullName(i18n),
               address(i18n),
+              phoneNumber(i18n),
+              misc(i18n),
             ],
           ),
         ),
@@ -80,6 +83,7 @@ class _FolderFormState extends State<FolderForm> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: TextFormField(
+        textCapitalization: TextCapitalization.sentences,
         maxLines: 2,
         decoration: InputDecoration(
           icon: const SizedBox(height: 24, width: 24),
@@ -97,6 +101,8 @@ class _FolderFormState extends State<FolderForm> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: TextFormField(
+        keyboardType: TextInputType.name,
+        textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           icon: const Icon(Icons.people),
           labelText: i18n.t("Full name"),
@@ -145,6 +151,8 @@ class _FolderFormState extends State<FolderForm> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: TextFormField(
+        keyboardType: TextInputType.name,
+        textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           icon: const SizedBox(height: 24, width: 24),
           labelText: i18n.t("Last name"),
@@ -161,6 +169,8 @@ class _FolderFormState extends State<FolderForm> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: TextFormField(
+        keyboardType: TextInputType.name,
+        textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           icon: const Icon(Icons.child_care),
           labelText: i18n.t("First name"),
@@ -170,6 +180,7 @@ class _FolderFormState extends State<FolderForm> {
           _folder.childFirstName = value;
         },
         validator: (value) {
+          print("Validation first name");
           if ((value == null) || (value.isEmpty)) {
             return i18n.t("First name should not be empty.");
           } else {
@@ -180,7 +191,7 @@ class _FolderFormState extends State<FolderForm> {
     );
   }
 
-  Padding priceRange(ChildCareLocalizations i18n) {
+  Padding preschoolStatus(ChildCareLocalizations i18n) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Row(
@@ -196,16 +207,74 @@ class _FolderFormState extends State<FolderForm> {
               trueText: i18n.t('Preschool'),
               falseText: i18n.t('Kindergarten'),
               validator: (value) {
+                print("Validation !!!!");
                 if (value == null) {
-                  return 'Please select one option';
+                  return i18n.t('Please select one option');
                 }
               },
-              onSaved: (value) {
-                _folder.preschool = value!;
+              onChanged: (value) {
+                setState(() {
+                  _folder.preschool = value!;
+                });
               },
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Padding allergies(ChildCareLocalizations i18n) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: TextFormField(
+        textCapitalization: TextCapitalization.sentences,
+        maxLines: 2,
+        decoration: InputDecoration(
+          icon: const SizedBox(height: 24, width: 24),
+          labelText: i18n.t("Allergies"),
+        ),
+        initialValue: _folder.allergies,
+        onChanged: (value) {
+          _folder.allergies = value;
+        },
+      ),
+    );
+  }
+
+  Padding phoneNumber(ChildCareLocalizations i18n) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: TextFormField(
+        keyboardType: TextInputType.phone,
+        textCapitalization: TextCapitalization.sentences,
+        decoration: InputDecoration(
+          icon: const SizedBox(height: 24, width: 24),
+          labelText: i18n.t("Phone number"),
+        ),
+        initialValue: _folder.phoneNumber,
+        onChanged: (value) {
+          _folder.phoneNumber = value;
+        },
+      ),
+    );
+  }
+
+  Padding misc(ChildCareLocalizations i18n) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: TextFormField(
+        textCapitalization: TextCapitalization.sentences,
+        maxLines: 4,
+        decoration: InputDecoration(
+          icon: const SizedBox(height: 24, width: 24),
+          labelText: i18n.t("Misc. information"),
+          alignLabelWithHint: true,
+        ),
+        initialValue: _folder.misc,
+        onChanged: (value) {
+          _folder.misc = value;
+        },
       ),
     );
   }
@@ -214,7 +283,7 @@ class _FolderFormState extends State<FolderForm> {
 class NullableBooleanFormField extends FormField<bool?> {
   NullableBooleanFormField({
     Key? key,
-    required FormFieldSetter<bool?> onSaved,
+    required FormFieldSetter<bool?> onChanged,
     required FormFieldValidator<bool?> validator,
     bool? initialValue,
     AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
@@ -222,13 +291,13 @@ class NullableBooleanFormField extends FormField<bool?> {
     required String falseText,
   }) : super(
             key: key,
-            onSaved: onSaved,
             validator: validator,
             initialValue: initialValue,
             autovalidateMode: autovalidateMode,
             builder: (FormFieldState<bool?> state) {
               final t = Theme.of(state.context);
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(children: [
                     Expanded(
@@ -238,6 +307,7 @@ class NullableBooleanFormField extends FormField<bool?> {
                         isSelected: state.value ?? false,
                         onPressed: () {
                           state.didChange(true);
+                          onChanged(true);
                         },
                       ),
                     ),
@@ -251,15 +321,23 @@ class NullableBooleanFormField extends FormField<bool?> {
                         isSelected: !(state.value ?? true),
                         onPressed: () {
                           state.didChange(false);
+                          onChanged(false);
                         },
                       ),
                     ),
                   ]),
                   state.hasError
-                      ? Text(
-                          state.errorText!,
-                          style: TextStyle(color: t.colorScheme.error),
-                        )
+                      ? Column(children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            state.errorText!,
+                            style: TextStyle(
+                              color: t.colorScheme.error,
+                            ),
+                          )
+                        ])
                       : Container()
                 ],
               );

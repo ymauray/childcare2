@@ -3,6 +3,7 @@ import 'package:childcare2/model/folder.dart';
 import 'package:childcare2/utils/database_utils.dart';
 import 'package:childcare2/widgets/left_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       body: ListView.builder(
           itemCount: data.length,
           itemBuilder: (context, index) {
-            return folderTile(context, index, i18n);
+            return folderTile(context, index, i18n, t);
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -64,16 +65,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Card folderTile(BuildContext context, int index, ChildCareLocalizations i18n) {
+  Card folderTile(BuildContext context, int index, ChildCareLocalizations i18n, ThemeData t) {
+    var hasAllergies = (data[index].allergies != null) && (data[index].allergies!.isNotEmpty);
+    var hasPhoneNumber = (data[index].phoneNumber != null) && (data[index].phoneNumber!.isNotEmpty);
     return Card(
       child: ListTile(
         onTap: () {
           Navigator.of(context).pushNamed('/entries', arguments: data[index]).then((value) {});
         },
         title: Text("${data[index].childFirstName} ${data[index].childLastName}"),
-        subtitle: Text(data[index].address),
-        isThreeLine: true,
+        subtitle: hasAllergies ? Text("${i18n.t("Known allergies")} : ${data[index].allergies}") : Text(i18n.t("No known allergies")),
+        isThreeLine: false,
         trailing: folderMenuButton(context, index, i18n),
+        leading: IconButton(
+          icon: Icon(
+            Icons.phone,
+            color: hasPhoneNumber ? Colors.green : Colors.red, // hasPhoneNumber ? t.disabledColor : null,
+          ),
+          onPressed: () {
+            if (hasPhoneNumber) launch("tel://${data[index].phoneNumber!}");
+          },
+        ),
       ),
     );
   }

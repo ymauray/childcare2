@@ -6,8 +6,11 @@ class Folder {
   String childLastName;
   DateTime? childDateOfBirth;
   bool? preschool;
+  String? allergies;
   String parentsFullName;
   String address;
+  String? phoneNumber;
+  String? misc;
 
   Folder()
       : childFirstName = "",
@@ -20,8 +23,11 @@ class Folder {
         childLastName = other.childLastName,
         childDateOfBirth = other.childDateOfBirth,
         preschool = other.preschool,
+        allergies = other.allergies,
         parentsFullName = other.parentsFullName,
-        address = other.address;
+        address = other.address,
+        phoneNumber = other.phoneNumber,
+        misc = other.misc;
 
   Folder mergeThisInto(Folder other) {
     Folder merged = Folder.clone(this);
@@ -35,8 +41,11 @@ class Folder {
       'childLastName': childLastName,
       'childDateOfBirth': childDateOfBirth == null ? null : DateFormat('yyyy-MM-dd').format(childDateOfBirth!),
       'preschool': preschool == null ? null : (preschool! ? 1 : 0),
+      'allergies': allergies,
       'parentsFullName': parentsFullName,
       'address': address,
+      'phoneNumber': phoneNumber,
+      'misc': misc,
     };
   }
 
@@ -46,6 +55,9 @@ class Folder {
         childLastName = row['childLastName'] as String? ?? '',
         childDateOfBirth = row['childDateOfBirth'] == null ? null : DateTime.parse(row['childDateOfBirth'] as String),
         preschool = row['preschool'] == null ? null : (row['preschool'] == 1),
+        allergies = row['allergies'] as String?,
         parentsFullName = row['parentsFullName'] as String? ?? '',
-        address = row['address'] as String? ?? '';
+        address = row['address'] as String? ?? '',
+        phoneNumber = row['phoneNumber'] as String?,
+        misc = row['misc'] as String?;
 }

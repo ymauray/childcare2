@@ -72,3 +72,21 @@ msgstr ""
 
 msgid "Kindergarten"
 msgstr ""
+
+msgid "Allergies"
+msgstr ""
+
+msgid "No known allergies"
+msgstr ""
+
+msgid "Known allergies"
+msgstr ""
+
+msgid "Phone number"
+msgstr ""
+
+msgid "Misc. information"
+msgstr ""
+
+msgid "Please select one option"
+msgstr ""
