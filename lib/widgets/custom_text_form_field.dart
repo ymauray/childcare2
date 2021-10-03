@@ -11,6 +11,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputType? keyboardType;
   final EdgeInsetsGeometry padding;
   final List<TextInputFormatter>? inputFormatters;
+  final TextCapitalization textCapitalization;
 
   const CustomTextFormField({
     Key? key,
@@ -23,6 +24,7 @@ class CustomTextFormField extends StatefulWidget {
     this.keyboardType,
     this.padding = const EdgeInsets.fromLTRB(16, 16, 16, 0),
     this.inputFormatters,
+    this.textCapitalization = TextCapitalization.sentences,
   }) : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       child: TextFormField(
         inputFormatters: widget.inputFormatters,
         keyboardType: widget.keyboardType,
-        textCapitalization: TextCapitalization.sentences,
+        textCapitalization: widget.textCapitalization,
         maxLines: widget.maxLines,
         decoration: InputDecoration(
           icon: widget.icon,

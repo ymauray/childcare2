@@ -3,6 +3,7 @@ import 'package:childcare2/model/folder.dart';
 import 'package:childcare2/utils/database_utils.dart';
 import 'package:childcare2/widgets/left_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -86,7 +87,12 @@ class _HomePageState extends State<HomePage> {
             color: hasPhoneNumber ? Colors.green : Colors.red, // hasPhoneNumber ? t.disabledColor : null,
           ),
           onPressed: () {
-            if (hasPhoneNumber) launch("tel://${data[index].phoneNumber!}");
+            final folder = data[index];
+            if (hasPhoneNumber) {
+              FlutterLibphonenumber().parse("${folder.countryCode}${folder.phoneNumber}").then((value) {
+                launch("tel://${value['e164']}");
+              });
+            }
           },
         ),
       ),

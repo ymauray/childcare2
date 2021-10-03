@@ -11,13 +11,14 @@ class Folder {
   String address;
   String? phoneNumber;
   String? misc;
-  String? countryCode;
+  String countryCode;
 
   Folder()
       : childFirstName = "",
         childLastName = "",
         parentsFullName = "",
-        address = "";
+        address = "",
+        countryCode = "+41";
 
   Folder.clone(Folder other)
       : childFirstName = other.childFirstName,
@@ -63,5 +64,5 @@ class Folder {
         address = row['address'] as String? ?? '',
         phoneNumber = row['phoneNumber'] as String?,
         misc = row['misc'] as String?,
-        countryCode = row['countryCode'] as String?;
+        countryCode = row['countryCode'] as String? ?? '+41';
 }
