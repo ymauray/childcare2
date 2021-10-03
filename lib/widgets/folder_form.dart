@@ -2,8 +2,9 @@ import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/model/folder.dart';
 import 'package:childcare2/widgets/custom_text_form_field.dart';
 import 'package:childcare2/widgets/nullable_boolean_form_field.dart';
-import 'package:childcare2/widgets/outlined_toggle_button.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:intl/intl.dart';
 
 class FolderForm extends StatefulWidget {
@@ -17,10 +18,20 @@ class _FolderFormState extends State<FolderForm> {
   late Folder _folder;
   late Folder? _argument;
 
+  bool _isPhoneNumberValid = true;
+  String? _phoneNumberPrefix;
+  CountryWithPhoneCode? _country;
+
   @override
   void didChangeDependencies() {
     _argument = ModalRoute.of(context)!.settings.arguments as Folder?;
     _folder = _argument == null ? Folder() : Folder.clone(_argument!);
+    if (_folder.phoneNumber != null) {
+      _phoneNumberPrefix = _folder.phoneNumber!.split(' ')[0];
+    } else {
+      _phoneNumberPrefix = "+41";
+    }
+    _country = CountryWithPhoneCode.getCountryDataByPhone(_phoneNumberPrefix!);
     super.didChangeDependencies();
   }
 
@@ -66,14 +77,14 @@ class _FolderFormState extends State<FolderForm> {
           key: _formKey,
           child: Column(
             children: [
-              childFirstName(i18n),
+              childFirstName(context, i18n),
               childLastName(i18n),
               childBirthDate(context, i18n),
               preschoolStatus(i18n),
               allergies(i18n),
-              parentsFullName(i18n),
+              parentsFullName(context, i18n),
               address(i18n),
-              phoneNumber(i18n),
+              phoneNumber(context, i18n),
               misc(i18n),
               const SizedBox(
                 height: 16,
@@ -85,10 +96,14 @@ class _FolderFormState extends State<FolderForm> {
     );
   }
 
-  Widget childFirstName(ChildCareLocalizations i18n) {
+  Widget childFirstName(BuildContext context, ChildCareLocalizations i18n) {
+    final t = Theme.of(context);
     return CustomTextFormField(
       labelText: i18n.t("First name"),
-      icon: const Icon(Icons.child_care),
+      icon: Icon(
+        Icons.child_care,
+        color: t.colorScheme.primary,
+      ),
       initialValue: _folder.childFirstName,
       onChanged: (value) {
         _folder.childFirstName = value;
@@ -184,9 +199,13 @@ class _FolderFormState extends State<FolderForm> {
     );
   }
 
-  Widget parentsFullName(ChildCareLocalizations i18n) {
+  Widget parentsFullName(BuildContext context, ChildCareLocalizations i18n) {
+    final t = Theme.of(context);
     return CustomTextFormField(
-      icon: const Icon(Icons.people),
+      icon: Icon(
+        Icons.people,
+        color: t.colorScheme.primary,
+      ),
       labelText: i18n.t("Full name"),
       initialValue: _folder.parentsFullName,
       onChanged: (value) {
@@ -206,14 +225,81 @@ class _FolderFormState extends State<FolderForm> {
     );
   }
 
-  Widget phoneNumber(ChildCareLocalizations i18n) {
-    return CustomTextFormField(
-      labelText: i18n.t("Phone number"),
-      keyboardType: TextInputType.phone,
-      initialValue: _folder.phoneNumber,
-      onChanged: (value) {
-        _folder.phoneNumber = value;
-      },
+  Widget phoneNumber(BuildContext context, ChildCareLocalizations i18n) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: Row(
+        children: [
+          const Icon(Icons.phone),
+          CountryCodePicker(
+            searchDecoration: const InputDecoration(
+              alignLabelWithHint: true,
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (countryCode) {
+              if (_folder.phoneNumber != null && _folder.phoneNumber!.isNotEmpty) {
+                _folder.phoneNumber = countryCode.dialCode! + " " + _folder.phoneNumber!.substring(_phoneNumberPrefix!.length).trim();
+                FlutterLibphonenumber().parse(_folder.phoneNumber!).then((value) {
+                  _isPhoneNumberValid = true;
+                }).onError((error, stackTrace) {
+                  _isPhoneNumberValid = false;
+                });
+              }
+              setState(() {
+                _folder.countryCode = countryCode.code;
+                _phoneNumberPrefix = countryCode.dialCode;
+                _country = CountryWithPhoneCode.getCountryDataByPhone(_phoneNumberPrefix!);
+              });
+            },
+            // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+            initialSelection: _folder.countryCode ?? 'CH',
+            favorite: const ['CH', 'FR'],
+            // optional. Shows only country name and flag
+            showCountryOnly: false,
+            // optional. Shows only country name and flag when popup is closed.
+            showOnlyCountryWhenClosed: false,
+            // optional. aligns the flag and the Text left
+            alignLeft: false,
+          ),
+          Expanded(
+            child: CustomTextFormField(
+              icon: null,
+              padding: EdgeInsets.zero,
+              labelText: i18n.t("Phone number"),
+              keyboardType: TextInputType.phone,
+              initialValue: _folder.phoneNumber == null ? null : _folder.phoneNumber!.substring(_phoneNumberPrefix!.length).trim(),
+              validator: (value) {
+                if (value != null && !_isPhoneNumberValid) {
+                  return "Invalid phone number";
+                }
+              },
+              inputFormatters: [
+                LibPhonenumberTextFormatter(
+                  phoneNumberType: PhoneNumberType.mobile,
+                  phoneNumberFormat: PhoneNumberFormat.international,
+                  country: _country!,
+                  inputContainsCountryCode: false,
+                  additionalDigits: 3,
+                ),
+              ],
+              onChanged: (value) {
+                if (value.isNotEmpty) {
+                  _folder.phoneNumber = "$_phoneNumberPrefix $value";
+                  FlutterLibphonenumber().parse(_folder.phoneNumber!).then((value) {
+                    _isPhoneNumberValid = true;
+                  }).onError((error, stackTrace) {
+                    _isPhoneNumberValid = false;
+                  });
+                } else {
+                  _folder.phoneNumber = null;
+                  _country = null;
+                  _isPhoneNumberValid = true;
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 

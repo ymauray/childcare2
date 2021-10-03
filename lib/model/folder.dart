@@ -11,6 +11,7 @@ class Folder {
   String address;
   String? phoneNumber;
   String? misc;
+  String? countryCode;
 
   Folder()
       : childFirstName = "",
@@ -27,7 +28,8 @@ class Folder {
         parentsFullName = other.parentsFullName,
         address = other.address,
         phoneNumber = other.phoneNumber,
-        misc = other.misc;
+        misc = other.misc,
+        countryCode = other.countryCode;
 
   Folder mergeThisInto(Folder other) {
     Folder merged = Folder.clone(this);
@@ -46,6 +48,7 @@ class Folder {
       'address': address,
       'phoneNumber': phoneNumber,
       'misc': misc,
+      'countryCode': phoneNumber == null ? null : countryCode,
     };
   }
 
@@ -59,5 +62,6 @@ class Folder {
         parentsFullName = row['parentsFullName'] as String? ?? '',
         address = row['address'] as String? ?? '',
         phoneNumber = row['phoneNumber'] as String?,
-        misc = row['misc'] as String?;
+        misc = row['misc'] as String?,
+        countryCode = row['countryCode'] as String?;
 }

@@ -2,10 +2,10 @@ import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/widgets/entries.dart';
 import 'package:childcare2/widgets/folder_form.dart';
 import 'package:childcare2/widgets/home_page.dart';
+import 'package:country_code_picker/country_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:yaru/yaru.dart' as yaru;
 
 class ChildCareApp extends StatelessWidget {
   const ChildCareApp({Key? key}) : super(key: key);
@@ -22,6 +22,7 @@ class ChildCareApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        CountryLocalizations.delegate,
       ],
       supportedLocales: const [
         Locale('en', ''),

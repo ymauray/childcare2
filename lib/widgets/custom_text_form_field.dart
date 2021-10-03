@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final String? labelText;
@@ -10,6 +9,8 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? icon;
   final int maxLines;
   final TextInputType? keyboardType;
+  final EdgeInsetsGeometry padding;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextFormField({
     Key? key,
@@ -20,6 +21,8 @@ class CustomTextFormField extends StatefulWidget {
     this.icon = const SizedBox(width: 24),
     this.maxLines = 1,
     this.keyboardType,
+    this.padding = const EdgeInsets.fromLTRB(16, 16, 16, 0),
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -30,8 +33,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      padding: widget.padding,
       child: TextFormField(
+        inputFormatters: widget.inputFormatters,
         keyboardType: widget.keyboardType,
         textCapitalization: TextCapitalization.sentences,
         maxLines: widget.maxLines,

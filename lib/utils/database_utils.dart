@@ -11,7 +11,7 @@ class DatabaseUtils {
     //deleteDatabase(databasePath);
     _database = await openDatabase(
       databasePath,
-      version: 6,
+      version: 7,
       onCreate: (db, version) {
         _create(db);
         for (var i = 2; i <= version; i++) {
@@ -71,6 +71,12 @@ class DatabaseUtils {
     if (version == 6) {
       await db.execute('''
       ALTER TABLE folder ADD misc TEXT
+      ''');
+    }
+
+    if (version == 7) {
+      await db.execute('''
+      ALTER TABLE folder ADD countryCode TEXT
       ''');
     }
   }

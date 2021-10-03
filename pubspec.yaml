@@ -43,6 +43,8 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   sqflite: ^2.0.0+4
   url_launcher: ^6.0.12
+  country_code_picker: ^2.0.2
+  flutter_libphonenumber: ^1.2.1
 
 dev_dependencies:
   flutter_test:
