@@ -14,82 +14,82 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Child Care"
-msgstr ""
+msgstr "Child Care"
 
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 msgid "New folder"
-msgstr ""
+msgstr "New folder"
 
 msgid "First name"
-msgstr ""
+msgstr "First name"
 
 msgid "Last name"
-msgstr ""
+msgstr "Last name"
 
 msgid "Full name"
 msgstr "Parents name"
 
 msgid "Address"
-msgstr ""
+msgstr "Address"
 
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 msgid "Entries"
-msgstr ""
+msgstr "Entries"
 
 msgid "Are you sure you want to delete this folder ?"
-msgstr ""
+msgstr "Are you sure you want to delete this folder ?"
 
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 msgid "No"
-msgstr ""
+msgstr "No"
 
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 msgid "Hours"
-msgstr ""
+msgstr "Hours"
 
 msgid "Minutes"
-msgstr ""
+msgstr "Minutes"
 
 msgid "Date of birth"
-msgstr ""
+msgstr "Date of birth"
 
 msgid "Preschool"
-msgstr ""
+msgstr "Preschool"
 
 msgid "Kindergarten"
-msgstr ""
+msgstr "Kindergarten"
 
 msgid "Allergies"
-msgstr ""
+msgstr "Allergies"
 
 msgid "No known allergies"
-msgstr ""
+msgstr "No known allergies"
 
 msgid "Known allergies"
-msgstr ""
+msgstr "Known allergies"
 
 msgid "Phone number"
-msgstr ""
+msgstr "Phone number"
 
 msgid "Misc. information"
-msgstr ""
+msgstr "Misc. information"
 
 msgid "Please select one option"
-msgstr ""
+msgstr "Please select one option"
 
 msgid "First name should not be empty."
-msgstr ""
+msgstr "First name should not be empty."

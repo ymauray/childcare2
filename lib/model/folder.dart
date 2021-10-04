@@ -1,3 +1,4 @@
+import 'package:childcare2/utils/i18n_utils.dart';
 import 'package:intl/intl.dart';
 
 class Folder {
@@ -18,7 +19,7 @@ class Folder {
         childLastName = "",
         parentsFullName = "",
         address = "",
-        countryCode = "+41";
+        countryCode = "+${I18nUtils.phoneCode!}";
 
   Folder.clone(Folder other)
       : childFirstName = other.childFirstName,
@@ -64,5 +65,5 @@ class Folder {
         address = row['address'] as String? ?? '',
         phoneNumber = row['phoneNumber'] as String?,
         misc = row['misc'] as String?,
-        countryCode = row['countryCode'] as String? ?? '+41';
+        countryCode = row['countryCode'] as String? ?? "+${I18nUtils.phoneCode!}";
 }
