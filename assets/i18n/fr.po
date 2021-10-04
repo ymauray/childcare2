@@ -93,3 +93,12 @@ msgstr "Veuillez choisir une option"
 
 msgid "First name should not be empty."
 msgstr "Le prénom doit être renseigné."
+
+msgid "Delete database"
+msgstr "Effecer la base de données"
+
+msgid "Database successfully deleted."
+msgstr "Base de données effacée."
+
+msgid "OK"
+msgstr "Ok"

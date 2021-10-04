@@ -93,3 +93,12 @@ msgstr "Please select one option"
 
 msgid "First name should not be empty."
 msgstr "First name should not be empty."
+
+msgid "Delete database"
+msgstr "Delete database"
+
+msgid "Database successfully deleted."
+msgstr "Database successfully deleted."
+
+msgid "OK"
+msgstr "OK"

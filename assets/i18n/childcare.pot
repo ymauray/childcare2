@@ -93,3 +93,12 @@ msgstr ""
 
 msgid "First name should not be empty."
 msgstr ""
+
+msgid "Delete database"
+msgstr ""
+
+msgid "Database successfully deleted."
+msgstr ""
+
+msgid "OK"
+msgstr ""

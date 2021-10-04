@@ -2,6 +2,7 @@ import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/widgets/entries.dart';
 import 'package:childcare2/widgets/folder_form.dart';
 import 'package:childcare2/widgets/home_page.dart';
+import 'package:childcare2/widgets/settings.dart';
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class ChildCareApp extends StatelessWidget {
         '/': (context) => const HomePage(),
         '/edit': (context) => const FolderForm(),
         '/entries': (context) => const Entries(),
+        '/settings': (context) => const Settings(),
       },
       onGenerateTitle: (context) => ChildCareLocalizations.of(context).t('Child Care'),
     );

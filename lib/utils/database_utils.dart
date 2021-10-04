@@ -1,16 +1,25 @@
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqflite.dart' as sqlite;
 import 'package:path/path.dart';
 
 class DatabaseUtils {
-  static Database? _database;
+  static sqlite.Database? _database;
 
-  static Future<Database> getDatabase() async {
+  static Future<String> get _databasePath async => join(await sqlite.getDatabasesPath(), 'childcare.db');
+
+  static Future<void> deleteDatabase() async {
+    if (_database != null) {
+      _database!.close();
+      _database = null;
+    }
+    sqlite.deleteDatabase(await _databasePath);
+  }
+
+  static Future<sqlite.Database> getDatabase() async {
     if (_database != null) return _database!;
 
-    var databasePath = join(await getDatabasesPath(), 'childcare.db');
-    //deleteDatabase(databasePath);
-    _database = await openDatabase(
-      databasePath,
+    //deleteDatabase(_databasePath);
+    _database = await sqlite.openDatabase(
+      await _databasePath,
       version: 7,
       onCreate: (db, version) {
         _create(db);
@@ -31,7 +40,7 @@ class DatabaseUtils {
     return _database!;
   }
 
-  static void _create(Database db) async {
+  static void _create(sqlite.Database db) async {
     await db.execute('''
       CREATE TABLE folder(
         id INTEGER PRIMARY KEY,
@@ -43,7 +52,7 @@ class DatabaseUtils {
       ''');
   }
 
-  static void _upgradeTo(int version, Database db) async {
+  static void _upgradeTo(int version, sqlite.Database db) async {
     if (version == 2) {
       await db.execute('''
       ALTER TABLE folder ADD childDateOfBirth TEXT
