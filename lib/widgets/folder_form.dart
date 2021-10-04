@@ -2,11 +2,11 @@ import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/model/folder.dart';
 import 'package:childcare2/utils/i18n_utils.dart';
 import 'package:childcare2/widgets/custom_text_form_field.dart';
+import 'package:childcare2/widgets/date_picker_form_field.dart';
 import 'package:childcare2/widgets/nullable_boolean_form_field.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
-import 'package:intl/intl.dart';
 
 class FolderForm extends StatefulWidget {
   const FolderForm({Key? key}) : super(key: key);
@@ -126,31 +126,11 @@ class _FolderFormState extends State<FolderForm> {
   Padding childBirthDate(BuildContext context, ChildCareLocalizations i18n) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          label: Text(i18n.t('Date of birth')),
-          icon: const SizedBox(width: 24),
-          border: const OutlineInputBorder(),
-        ),
-        keyboardType: TextInputType.none,
-        showCursor: false,
-        enableInteractiveSelection: false,
-        controller: TextEditingController(
-          text: _folder.childDateOfBirth == null ? "" : DateFormat.yMMMMd(I18nUtils.locale).format(_folder.childDateOfBirth!),
-        ),
-        onTap: () {
-          showDatePicker(
-            context: context,
-            initialDate: _folder.childDateOfBirth ?? DateTime.now(),
-            firstDate: DateTime.now().add(
-              const Duration(days: -20 * 366),
-            ),
-            lastDate: DateTime.now(),
-          ).then((date) {
-            setState(() {
-              _folder.childDateOfBirth = date ?? _folder.childDateOfBirth;
-            });
-          });
+      child: DatePickerFormField(
+        label: Text(i18n.t('Date of birth')),
+        initialDate: _folder.childDateOfBirth,
+        onChange: (date) {
+          _folder.childDateOfBirth = date;
         },
       ),
     );
