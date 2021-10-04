@@ -7,7 +7,6 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:intl/intl.dart';
-import 'dart:io';
 
 class FolderForm extends StatefulWidget {
   const FolderForm({Key? key}) : super(key: key);
@@ -242,8 +241,7 @@ class _FolderFormState extends State<FolderForm> {
                 _folder.phoneNumber = null;
               });
             },
-            initialSelection: _folder.countryCode,
-            //favorite: const ['+41', '+33'],
+            initialSelection: I18nUtils.currentCountryCode ?? '',
             favorite: [I18nUtils.currentCountryCode ?? ''],
             showCountryOnly: true,
             showOnlyCountryWhenClosed: true,
