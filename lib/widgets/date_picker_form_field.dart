@@ -6,13 +6,17 @@ import 'package:intl/intl.dart';
 class DatePickerFormField extends StatefulWidget {
   final Widget? label;
   final DateTime? initialDate;
-  final ValueChanged<DateTime?> onChange;
+  final ValueChanged<DateTime?>? onChanged;
+  final FormFieldSetter<DateTime?>? onSaved;
+  final FormFieldValidator<DateTime?>? validator;
 
   const DatePickerFormField({
     Key? key,
     this.label,
     this.initialDate,
-    required this.onChange,
+    this.onChanged,
+    this.onSaved,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -33,7 +37,6 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
     return TextFormField(
       decoration: InputDecoration(
         label: widget.label,
-        icon: const SizedBox(width: 24),
         border: const OutlineInputBorder(),
       ),
       keyboardType: TextInputType.none,
@@ -42,6 +45,12 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
       controller: TextEditingController(
         text: _value == null ? "" : DateFormat.yMMMMd(I18nUtils.locale).format(_value!),
       ),
+      onSaved: (_) {
+        if (widget.onSaved != null) widget.onSaved!(_value);
+      },
+      validator: (_) {
+        if (widget.validator != null) widget.validator!(_value);
+      },
       onTap: () {
         showDatePicker(
           context: context,
@@ -53,7 +62,7 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
         ).then((date) {
           setState(() {
             _value = date;
-            widget.onChange(_value);
+            if (widget.onChanged != null) widget.onChanged!(_value);
           });
         });
       },

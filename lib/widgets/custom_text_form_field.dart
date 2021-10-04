@@ -19,10 +19,10 @@ class CustomTextFormField extends StatefulWidget {
     this.initialValue,
     this.onChanged,
     this.validator,
-    this.icon = const SizedBox(width: 24),
+    this.icon, // = const SizedBox(width: 24),
     this.maxLines = 1,
     this.keyboardType,
-    this.padding = const EdgeInsets.fromLTRB(16, 16, 16, 0),
+    this.padding = EdgeInsets.zero, // = const EdgeInsets.fromLTRB(16, 16, 16, 0),
     this.inputFormatters,
     this.textCapitalization = TextCapitalization.sentences,
   }) : super(key: key);

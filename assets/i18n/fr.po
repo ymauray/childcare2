@@ -102,3 +102,16 @@ msgstr "Base de données effacée."
 
 msgid "OK"
 msgstr "Ok"
+
+msgid "Noon"
+msgstr "Midi"
+
+msgid "Evening"
+msgstr "Soir"
+
+msgid "Night"
+msgstr "Nuit"
+
+msgid "Total pending billing :"
+msgstr "Total en attente de facturation :"
+

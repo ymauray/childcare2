@@ -1,6 +1,7 @@
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/model/folder.dart';
 import 'package:childcare2/utils/i18n_utils.dart';
+import 'package:childcare2/widgets/custom_row.dart';
 import 'package:childcare2/widgets/custom_text_form_field.dart';
 import 'package:childcare2/widgets/date_picker_form_field.dart';
 import 'package:childcare2/widgets/nullable_boolean_form_field.dart';
@@ -91,125 +92,117 @@ class _FolderFormState extends State<FolderForm> {
 
   Widget childFirstName(BuildContext context, ChildCareLocalizations i18n) {
     final t = Theme.of(context);
-    return CustomTextFormField(
-      labelText: i18n.t("First name"),
-      icon: Icon(
-        Icons.child_care,
-        color: t.colorScheme.primary,
+    return CustomRow(
+      icon: const Icon(Icons.child_care),
+      child: CustomTextFormField(
+        labelText: i18n.t("First name"),
+        initialValue: _folder.childFirstName,
+        textCapitalization: TextCapitalization.words,
+        onChanged: (value) {
+          _folder.childFirstName = value;
+        },
+        validator: (value) {
+          if ((value == null) || (value.isEmpty)) {
+            return i18n.t("First name should not be empty.");
+          } else {
+            return null;
+          }
+        },
       ),
-      initialValue: _folder.childFirstName,
-      textCapitalization: TextCapitalization.words,
-      onChanged: (value) {
-        _folder.childFirstName = value;
-      },
-      validator: (value) {
-        if ((value == null) || (value.isEmpty)) {
-          return i18n.t("First name should not be empty.");
-        } else {
-          return null;
-        }
-      },
     );
   }
 
   Widget childLastName(ChildCareLocalizations i18n) {
-    return CustomTextFormField(
-      labelText: i18n.t("Last name"),
-      initialValue: _folder.childLastName,
-      textCapitalization: TextCapitalization.words,
-      onChanged: (value) {
-        _folder.childLastName = value;
-      },
+    return CustomRow(
+      child: CustomTextFormField(
+        labelText: i18n.t("Last name"),
+        initialValue: _folder.childLastName,
+        textCapitalization: TextCapitalization.words,
+        onChanged: (value) {
+          _folder.childLastName = value;
+        },
+      ),
     );
   }
 
-  Padding childBirthDate(BuildContext context, ChildCareLocalizations i18n) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+  Widget childBirthDate(BuildContext context, ChildCareLocalizations i18n) {
+    return CustomRow(
       child: DatePickerFormField(
         label: Text(i18n.t('Date of birth')),
         initialDate: _folder.childDateOfBirth,
-        onChange: (date) {
+        onChanged: (date) {
           _folder.childDateOfBirth = date;
         },
       ),
     );
   }
 
-  Padding preschoolStatus(ChildCareLocalizations i18n) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-      child: Row(
-        children: [
-          const SizedBox(width: 40),
-          Expanded(
-            child: NullableBooleanFormField(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              initialValue: _folder.preschool,
-              trueText: i18n.t('Preschool'),
-              falseText: i18n.t('Kindergarten'),
-              validator: (value) {
-                if (value == null) {
-                  return i18n.t('Please select one option');
-                }
-              },
-              onChanged: (value) {
-                setState(() {
-                  _folder.preschool = value!;
-                });
-              },
-            ),
-          )
-        ],
+  Widget preschoolStatus(ChildCareLocalizations i18n) {
+    return CustomRow(
+      child: NullableBooleanFormField(
+        initialValue: _folder.preschool,
+        trueText: i18n.t('Preschool'),
+        falseText: i18n.t('Kindergarten'),
+        validator: (value) {
+          if (value == null) {
+            return i18n.t('Please select one option');
+          }
+        },
+        onChanged: (value) {
+          setState(() {
+            _folder.preschool = value!;
+          });
+        },
       ),
     );
   }
 
   Widget allergies(ChildCareLocalizations i18n) {
-    return CustomTextFormField(
-      labelText: i18n.t("Allergies"),
-      maxLines: 2,
-      initialValue: _folder.allergies,
-      onChanged: (value) {
-        _folder.allergies = value;
-      },
+    return CustomRow(
+      child: CustomTextFormField(
+        labelText: i18n.t("Allergies"),
+        maxLines: 2,
+        initialValue: _folder.allergies,
+        onChanged: (value) {
+          _folder.allergies = value;
+        },
+      ),
     );
   }
 
   Widget parentsFullName(BuildContext context, ChildCareLocalizations i18n) {
-    final t = Theme.of(context);
-    return CustomTextFormField(
-      icon: Icon(
-        Icons.people,
-        color: t.colorScheme.primary,
+    return CustomRow(
+      icon: const Icon(Icons.people),
+      child: CustomTextFormField(
+        labelText: i18n.t("Full name"),
+        textCapitalization: TextCapitalization.words,
+        initialValue: _folder.parentsFullName,
+        onChanged: (value) {
+          _folder.parentsFullName = value;
+        },
       ),
-      labelText: i18n.t("Full name"),
-      textCapitalization: TextCapitalization.words,
-      initialValue: _folder.parentsFullName,
-      onChanged: (value) {
-        _folder.parentsFullName = value;
-      },
     );
   }
 
   Widget address(ChildCareLocalizations i18n) {
-    return CustomTextFormField(
-      labelText: i18n.t("Address"),
-      maxLines: 2,
-      initialValue: _folder.address,
-      textCapitalization: TextCapitalization.words,
-      onChanged: (value) {
-        _folder.address = value;
-      },
+    return CustomRow(
+      child: CustomTextFormField(
+        labelText: i18n.t("Address"),
+        maxLines: 2,
+        initialValue: _folder.address,
+        textCapitalization: TextCapitalization.words,
+        onChanged: (value) {
+          _folder.address = value;
+        },
+      ),
     );
   }
 
   Widget phoneNumber(BuildContext context, ChildCareLocalizations i18n) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+    return CustomRow(
+      icon: const Icon(Icons.phone),
       child: Row(
         children: [
-          const Icon(Icons.phone),
           CountryCodePicker(
             searchDecoration: const InputDecoration(
               alignLabelWithHint: true,
@@ -260,13 +253,15 @@ class _FolderFormState extends State<FolderForm> {
   }
 
   Widget misc(ChildCareLocalizations i18n) {
-    return CustomTextFormField(
-      labelText: i18n.t("Misc. information"),
-      maxLines: 4,
-      initialValue: _folder.misc,
-      onChanged: (value) {
-        _folder.misc = value;
-      },
+    return CustomRow(
+      child: CustomTextFormField(
+        labelText: i18n.t("Misc. information"),
+        maxLines: 4,
+        initialValue: _folder.misc,
+        onChanged: (value) {
+          _folder.misc = value;
+        },
+      ),
     );
   }
 }

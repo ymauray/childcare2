@@ -102,3 +102,16 @@ msgstr ""
 
 msgid "OK"
 msgstr ""
+
+msgid "Noon"
+msgstr ""
+
+msgid "Evening"
+msgstr ""
+
+msgid "Night"
+msgstr ""
+
+msgid "Total pending billing :"
+msgstr ""
+

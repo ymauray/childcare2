@@ -102,3 +102,16 @@ msgstr "Database successfully deleted."
 
 msgid "OK"
 msgstr "OK"
+
+msgid "Noon"
+msgstr "Noon"
+
+msgid "Evening"
+msgstr "Evening"
+
+msgid "Night"
+msgstr "Night"
+
+msgid "Total pending billing :"
+msgstr "Total pending billing :"
+

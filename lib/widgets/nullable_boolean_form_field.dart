@@ -2,7 +2,7 @@ import 'package:childcare2/widgets/outlined_toggle_button.dart';
 import 'package:flutter/material.dart';
 
 class NullableBooleanFormField extends FormField<bool?> {
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   NullableBooleanFormField({
     Key? key,
@@ -12,7 +12,7 @@ class NullableBooleanFormField extends FormField<bool?> {
     AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
     required String trueText,
     required String falseText,
-    this.padding = EdgeInsets.zero,
+    this.padding = const EdgeInsets.fromLTRB(0, 20, 0, 20),
   }) : super(
             key: key,
             validator: validator,
@@ -31,7 +31,7 @@ class NullableBooleanFormField extends FormField<bool?> {
                         padding: padding,
                         child: Text(trueText),
                         isSelected: state.value ?? false,
-                        onPressed: () {
+                        onChanged: () {
                           state.didChange(true);
                           onChanged(true);
                         },
@@ -46,7 +46,7 @@ class NullableBooleanFormField extends FormField<bool?> {
                         padding: padding,
                         child: Text(falseText),
                         isSelected: !(state.value ?? true),
-                        onPressed: () {
+                        onChanged: () {
                           state.didChange(false);
                           onChanged(false);
                         },
