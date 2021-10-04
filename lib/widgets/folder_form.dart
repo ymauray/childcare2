@@ -136,7 +136,7 @@ class _FolderFormState extends State<FolderForm> {
         showCursor: false,
         enableInteractiveSelection: false,
         controller: TextEditingController(
-          text: _folder.childDateOfBirth == null ? "" : DateFormat('dd.MM.yyyy').format(_folder.childDateOfBirth!),
+          text: _folder.childDateOfBirth == null ? "" : DateFormat.yMMMMd(I18nUtils.locale).format(_folder.childDateOfBirth!),
         ),
         onTap: () {
           showDatePicker(
