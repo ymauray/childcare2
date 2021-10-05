@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:developer';
 
-class Entries extends StatefulWidget {
-  const Entries({Key? key}) : super(key: key);
+class EntriesPage extends StatefulWidget {
+  const EntriesPage({Key? key}) : super(key: key);
 
   @override
-  _EntriesState createState() => _EntriesState();
+  _EntriesPageState createState() => _EntriesPageState();
 }
 
-class _EntriesState extends State<Entries> {
+class _EntriesPageState extends State<EntriesPage> {
   List<Entry> entries = [];
   final Entry _entry = Entry();
   final _formKey = GlobalKey<FormState>();
