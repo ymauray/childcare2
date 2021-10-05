@@ -1,3 +1,4 @@
+import 'package:childcare2/forms/folder_form.dart';
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/model/folder.dart';
 import 'package:childcare2/utils/database_utils.dart';
@@ -46,7 +47,11 @@ class _HomePageState extends State<HomePage> {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/edit", arguments: null).then((value) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FolderForm(),
+              )).then((value) {
             if (value != null) {
               var folder = value as Folder;
               DatabaseUtils.getDatabase().then((db) {
@@ -104,7 +109,11 @@ class _HomePageState extends State<HomePage> {
       onSelected: (result) {
         switch (result) {
           case "edit":
-            Navigator.of(context).pushNamed("/edit", arguments: data[index]).then((value) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FolderForm(folder: data[index]),
+                )).then((value) {
               if (value != null) {
                 var folder = value as Folder;
                 setState(() {

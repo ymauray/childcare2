@@ -31,7 +31,6 @@ class ChildCareApp extends StatelessWidget {
       ],
       routes: {
         '/': (context) => const HomePage(),
-        '/edit': (context) => const FolderForm(),
         '/entries': (context) => const EntriesPage(),
         '/settings': (context) => const SettingsPage(),
       },

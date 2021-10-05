@@ -10,22 +10,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 
 class FolderForm extends StatefulWidget {
-  const FolderForm({Key? key}) : super(key: key);
+  final Folder? folder;
+
+  const FolderForm({Key? key, this.folder}) : super(key: key);
 
   @override
   State<FolderForm> createState() => _FolderFormState();
 }
 
 class _FolderFormState extends State<FolderForm> {
-  late Folder _folder;
-  late Folder? _argument;
+  Folder _folder = Folder();
 
   bool _isPhoneNumberValid = true;
 
   @override
   void didChangeDependencies() {
-    _argument = ModalRoute.of(context)!.settings.arguments as Folder?;
-    _folder = _argument == null ? Folder() : Folder.clone(_argument!);
+    if (widget.folder != null) _folder = Folder.clone(widget.folder!);
     super.didChangeDependencies();
   }
 
@@ -44,7 +44,7 @@ class _FolderFormState extends State<FolderForm> {
           },
         ),
         title: Text(
-          _argument == null ? i18n.t('New folder') : "${_folder.childFirstName} ${_folder.childLastName}".trim(),
+          widget.folder == null ? i18n.t('New folder') : "${_folder.childFirstName} ${_folder.childLastName}".trim(),
           style: TextStyle(color: t.colorScheme.onPrimary),
         ),
         backgroundColor: t.colorScheme.primary,
