@@ -27,7 +27,7 @@ class NullableBooleanFormField extends FormField<bool?> {
                   Row(children: [
                     Expanded(
                       flex: 1,
-                      child: OutlinedToggleButton(
+                      child: OutlinedToggleButtonFormField(
                         padding: padding,
                         child: Text(trueText),
                         isSelected: state.value ?? false,
@@ -42,7 +42,7 @@ class NullableBooleanFormField extends FormField<bool?> {
                     ),
                     Expanded(
                       flex: 1,
-                      child: OutlinedToggleButton(
+                      child: OutlinedToggleButtonFormField(
                         padding: padding,
                         child: Text(falseText),
                         isSelected: !(state.value ?? true),

@@ -124,7 +124,7 @@ class _EntriesState extends State<Entries> {
       child: Row(
         children: [
           Expanded(
-            child: OutlinedToggleButton(
+            child: OutlinedToggleButtonFormField(
               child: Text(i18n.t("Noon")),
               isSelected: _entry.lunch,
               onSaved: (value) {
@@ -137,7 +137,7 @@ class _EntriesState extends State<Entries> {
             width: 8,
           ),
           Expanded(
-            child: OutlinedToggleButton(
+            child: OutlinedToggleButtonFormField(
               child: Text(i18n.t("Evening")),
               isSelected: _entry.diner,
               onSaved: (value) {
@@ -150,7 +150,7 @@ class _EntriesState extends State<Entries> {
             width: 8,
           ),
           Expanded(
-            child: OutlinedToggleButton(
+            child: OutlinedToggleButtonFormField(
               child: Text(i18n.t("Night")),
               isSelected: _entry.night,
               onSaved: (value) {
