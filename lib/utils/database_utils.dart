@@ -40,6 +40,17 @@ class DatabaseUtils {
     return _database!;
   }
 
+  static void delete(
+    String table, {
+    String? where,
+    List<Object?>? whereArgs,
+    void Function(int)? onDeleted,
+  }) async {
+    var db = await DatabaseUtils.getDatabase();
+    var numRows = await db.delete(table, where: where, whereArgs: whereArgs);
+    onDeleted?.call(numRows);
+  }
+
   static void _create(sqlite.Database db) async {
     await db.execute('''
       CREATE TABLE folder(

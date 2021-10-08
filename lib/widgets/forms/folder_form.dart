@@ -1,11 +1,18 @@
-import 'package:childcare2/i18n/child_care_localization.dart';
+import 'package:childcare2/i18n/child_care_localizations.dart';
 import 'package:childcare2/model/folder.dart';
 import 'package:childcare2/utils/i18n_utils.dart';
+import 'package:childcare2/widgets/components/form/fx_form_field_date_picker.dart';
+import 'package:childcare2/widgets/components/form/fx_form_group.dart';
+import 'package:childcare2/widgets/components/form/fx_form_group_row.dart';
+import 'package:childcare2/widgets/components/form/fx_form_field_text_input.dart';
+import 'package:childcare2/widgets/components/form/fx_row.dart';
+import 'package:childcare2/widgets/components/form/fx_text_form_field.dart';
 import 'package:childcare2/widgets/custom_row.dart';
 import 'package:childcare2/widgets/custom_text_form_field.dart';
 import 'package:childcare2/widgets/date_picker_form_field.dart';
 import 'package:childcare2/widgets/nullable_boolean_form_field.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 
@@ -70,21 +77,60 @@ class _FolderFormState extends State<FolderForm> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              childFirstName(context, i18n),
-              childLastName(i18n),
-              childBirthDate(context, i18n),
-              preschoolStatus(i18n),
-              allergies(i18n),
-              parentsFullName(context, i18n),
-              address(i18n),
-              phoneNumber(context, i18n),
-              misc(i18n),
+              FxFormGroup(header: 'Enfant', children: [
+                FxFormGroupRow(
+                  leading: 'Prénom',
+                  child: FxFormFieldTextInput(
+                    initialValue: _folder.childFirstName,
+                  ),
+                ),
+                FxFormGroupRow(
+                  leading: 'Nom',
+                  child: FxFormFieldTextInput(
+                    initialValue: _folder.childLastName,
+                  ),
+                ),
+                FxFormGroupRow(
+                  leading: 'Date de naissance',
+                  child: FxFormFieldDatePicker(
+                    date: _folder.childDateOfBirth,
+                  ),
+                ),
+              ]),
               const SizedBox(
-                height: 16,
+                height: 8,
+              ),
+              FxRow(
+                icon: const Icon(Icons.child_care),
+                child: FxTextFormField(
+                  initialValue: _folder.childFirstName,
+                ),
+              ),
+              FxRow(
+                child: FxTextFormField(
+                  initialValue: _folder.childLastName,
+                ),
               ),
             ],
           ),
+          //child: Column(
+          //  children: [
+          //    childFirstName(context, i18n),
+          //    childLastName(i18n),
+          //    childBirthDate(context, i18n),
+          //    preschoolStatus(i18n),
+          //    allergies(i18n),
+          //    parentsFullName(context, i18n),
+          //    address(i18n),
+          //    phoneNumber(context, i18n),
+          //    misc(i18n),
+          //    const SizedBox(
+          //      height: 16,
+          //    ),
+          //  ],
+          //),
         ),
       ),
     );

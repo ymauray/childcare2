@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:childcare2/i18n/child_care_localization.dart';
+import 'package:childcare2/i18n/child_care_localizations.dart';
 import 'package:childcare2/model/entry.dart';
 import 'package:childcare2/widgets/custom_dropdown_button_form_field.dart';
 import 'package:childcare2/widgets/custom_row.dart';

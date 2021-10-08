@@ -5,10 +5,8 @@ import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import "package:gettext/gettext.dart";
 import 'package:gettext_parser/gettext_parser.dart' as gettext_parser;
 
-mixin I18n {
-  ChildCareLocalizations initI18n(BuildContext context) {
-    return ChildCareLocalizations.of(context);
-  }
+extension ChildCareLocalizationsExt on String {
+  String t(BuildContext context) => ChildCareLocalizations.of(context).t(this);
 }
 
 class ChildCareLocalizationsDelegate extends LocalizationsDelegate<ChildCareLocalizations> {

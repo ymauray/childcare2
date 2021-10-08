@@ -1,4 +1,5 @@
 {
     "dart.lineLength": 200,
-    "dart.flutterHotReloadOnSave": "always"
+    "dart.flutterHotReloadOnSave": "always",
+    "dart.embedDevTools": false,
 }

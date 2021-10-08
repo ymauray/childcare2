@@ -1,8 +1,7 @@
-import 'package:childcare2/i18n/child_care_localization.dart';
-import 'package:childcare2/pages/entries_page.dart';
-import 'package:childcare2/forms/folder_form.dart';
-import 'package:childcare2/pages/home_page.dart';
-import 'package:childcare2/pages/settings_page.dart';
+import 'package:childcare2/i18n/child_care_localizations.dart';
+import 'package:childcare2/widgets/pages/entries_page.dart';
+import 'package:childcare2/widgets/pages/home_page.dart';
+import 'package:childcare2/widgets/pages/settings_page.dart';
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
