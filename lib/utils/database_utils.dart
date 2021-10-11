@@ -20,7 +20,7 @@ class DatabaseUtils {
     //deleteDatabase(_databasePath);
     _database = await sqlite.openDatabase(
       await _databasePath,
-      version: 7,
+      version: 1,
       onCreate: (db, version) {
         _create(db);
         for (var i = 2; i <= version; i++) {
@@ -58,6 +58,5 @@ class DatabaseUtils {
       ''');
   }
 
-  static void _upgradeTo(int version, sqlite.Database db) async {
-  }
+  static void _upgradeTo(int version, sqlite.Database db) async {}
 }
