@@ -115,3 +115,20 @@ msgstr ""
 msgid "Total pending billing :"
 msgstr ""
 
+msgid "Lunch"
+msgstr ""
+
+msgid "Dinner"
+msgstr ""
+
+msgid "New entry"
+msgstr ""
+
+msgid "Duration"
+msgstr ""
+
+msgid "Legend"
+msgstr ""
+
+msgid "Are you sure you want to delete this entry ?"
+msgstr ""

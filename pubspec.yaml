@@ -46,6 +46,9 @@ dependencies:
   country_code_picker: ^2.0.2
   flutter_libphonenumber: ^1.2.1
   package_info_plus: ^1.2.1
+  firebase_crashlytics: ^2.2.3
+  firebase_core: ^1.7.0
+  provider: ^6.0.1
 
 dev_dependencies:
   flutter_test:
@@ -101,5 +104,6 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   assets:
-    - assets/en.po
-    - assets/fr.po
+    - assets/i18n/en.po
+    - assets/i18n/fr.po
+    - assets/i18n/fr_CH.po

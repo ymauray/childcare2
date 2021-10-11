@@ -1,5 +1,4 @@
 import 'package:childcare2/i18n/child_care_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LeftMenu extends StatelessWidget {

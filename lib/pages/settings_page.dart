@@ -1,7 +1,6 @@
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/utils/database_utils.dart';
 import 'package:childcare2/utils/version_utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

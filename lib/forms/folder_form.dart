@@ -91,7 +91,6 @@ class _FolderFormState extends State<FolderForm> {
   }
 
   Widget childFirstName(BuildContext context, ChildCareLocalizations i18n) {
-    final t = Theme.of(context);
     return CustomRow(
       icon: const Icon(Icons.child_care),
       child: CustomTextFormField(

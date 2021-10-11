@@ -46,47 +46,18 @@ class DatabaseUtils {
         id INTEGER PRIMARY KEY,
         childFirstName TEXT,
         childLastName TEXT,
+        childDateOfBirth TEXT,
+        preschool INTEGER,
+        allergies TEXT,
         parentsFullName TEXT,
-        address TEXT
+        address TEXT,
+        countryCode TEXT,
+        phoneNumber TEXT,
+        misc TEXT
       )
       ''');
   }
 
   static void _upgradeTo(int version, sqlite.Database db) async {
-    if (version == 2) {
-      await db.execute('''
-      ALTER TABLE folder ADD childDateOfBirth TEXT
-      ''');
-    }
-
-    if (version == 3) {
-      await db.execute('''
-      ALTER TABLE folder ADD preschool INTEGER
-      ''');
-    }
-
-    if (version == 4) {
-      await db.execute('''
-      ALTER TABLE folder ADD allergies TEXT
-      ''');
-    }
-
-    if (version == 5) {
-      await db.execute('''
-      ALTER TABLE folder ADD phoneNumber TEXT
-      ''');
-    }
-
-    if (version == 6) {
-      await db.execute('''
-      ALTER TABLE folder ADD misc TEXT
-      ''');
-    }
-
-    if (version == 7) {
-      await db.execute('''
-      ALTER TABLE folder ADD countryCode TEXT
-      ''');
-    }
   }
 }

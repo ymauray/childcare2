@@ -16,7 +16,12 @@ class CustomRow extends StatelessWidget {
     if (icon != null) {
       children.add(Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
-        child: icon!,
+        child: ConstrainedBox(
+            constraints: const BoxConstraints.tightFor(
+              width: 24,
+              height: 24,
+            ),
+            child: icon!),
       ));
     }
     if (child != null) {

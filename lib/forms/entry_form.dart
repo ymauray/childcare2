@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/model/entry.dart';
 import 'package:childcare2/widgets/custom_dropdown_button_form_field.dart';
@@ -7,7 +5,10 @@ import 'package:childcare2/widgets/custom_row.dart';
 import 'package:childcare2/widgets/date_picker_form_field.dart';
 import 'package:childcare2/widgets/outlined_toggle_button.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+extension DateTimeExt on DateTime {
+  DateTime toStartOfDay() => DateTime(year, month, day);
+}
 
 class EntryForm extends StatelessWidget {
   final Entry? entry;
@@ -27,7 +28,7 @@ class EntryForm extends StatelessWidget {
             Navigator.of(context).pop(null);
           },
         ),
-        title: const Text("New entry"),
+        title: Text("New entry".t(context)),
         backgroundColor: t.colorScheme.primary,
         iconTheme: IconThemeData(color: t.colorScheme.onPrimary),
         actions: [
@@ -35,8 +36,7 @@ class EntryForm extends StatelessWidget {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                inspect(returnValue);
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(returnValue);
               }
             },
             child: Text(
@@ -55,7 +55,7 @@ class EntryForm extends StatelessWidget {
             children: [
               dateHoursMinutes(i18n, context),
               buttons(i18n, t),
-              pendingBalance(i18n),
+              //pendingBalance(i18n),
             ],
           ),
         ),
@@ -65,14 +65,15 @@ class EntryForm extends StatelessWidget {
 
   Widget dateHoursMinutes(ChildCareLocalizations i18n, BuildContext context) {
     return CustomRow(
-      icon: const Icon(Icons.hourglass_bottom),
+      icon: null,
       child: Row(
         children: [
           Expanded(
             flex: 2,
             child: DatePickerFormField(
               label: Text(i18n.t('Date')),
-              initialDate: DateTime.now(),
+              nullable: false,
+              initialDate: DateTime.now().toStartOfDay(),
               onSaved: (date) {
                 if (date != null) {
                   returnValue.date = date;
@@ -120,13 +121,7 @@ class EntryForm extends StatelessWidget {
 
   Widget buttons(ChildCareLocalizations i18n, ThemeData t) {
     return CustomRow(
-      icon: const SizedBox(
-        width: 24,
-        height: 24,
-        child: FaIcon(
-          FontAwesomeIcons.utensils,
-        ),
-      ),
+      icon: null,
       child: Row(
         children: [
           Expanded(

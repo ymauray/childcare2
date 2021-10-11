@@ -115,3 +115,21 @@ msgstr "Nuit"
 msgid "Total pending billing :"
 msgstr "Total en attente de facturation :"
 
+
+msgid "Lunch"
+msgstr "Déjeuner"
+
+msgid "Dinner"
+msgstr "Dîner"
+
+msgid "New entry"
+msgstr "Nouvelle saisie"
+
+msgid "Duration"
+msgstr "Durée"
+
+msgid "Legend"
+msgstr "Légende"
+
+msgid "Are you sure you want to delete this entry ?"
+msgstr "Etes-vous certain de vouloir supprimer cette entrée ?"

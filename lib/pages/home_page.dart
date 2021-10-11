@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FolderForm(),
+                builder: (context) => const FolderForm(),
               )).then((value) {
             if (value != null) {
               var folder = value as Folder;

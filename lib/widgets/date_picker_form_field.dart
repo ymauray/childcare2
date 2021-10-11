@@ -1,15 +1,8 @@
 import 'package:childcare2/utils/i18n_utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DatePickerFormField extends StatefulWidget {
-  final Widget? label;
-  final DateTime? initialDate;
-  final ValueChanged<DateTime?>? onChanged;
-  final FormFieldSetter<DateTime?>? onSaved;
-  final FormFieldValidator<DateTime?>? validator;
-
   const DatePickerFormField({
     Key? key,
     this.label,
@@ -17,7 +10,15 @@ class DatePickerFormField extends StatefulWidget {
     this.onChanged,
     this.onSaved,
     this.validator,
+    this.nullable = true,
   }) : super(key: key);
+
+  final Widget? label;
+  final DateTime? initialDate;
+  final ValueChanged<DateTime?>? onChanged;
+  final FormFieldSetter<DateTime?>? onSaved;
+  final FormFieldValidator<DateTime?>? validator;
+  final bool nullable;
 
   @override
   _DatePickerFormFieldState createState() => _DatePickerFormFieldState();
@@ -60,10 +61,12 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
           ),
           lastDate: DateTime.now(),
         ).then((date) {
-          setState(() {
-            _value = date;
+          if (widget.nullable || date != null) {
+            setState(() {
+              _value = date;
+            });
             if (widget.onChanged != null) widget.onChanged!(_value);
-          });
+          }
         });
       },
     );

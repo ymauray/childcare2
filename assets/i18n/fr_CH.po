@@ -2,133 +2,134 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2021-09-29 09:59+0200\n"
-"PO-Revision-Date: 2021-09-29 10:58+0200\n"
+"PO-Revision-Date: 2021-09-29 10:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: en\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Child Care"
-msgstr "Child Care"
+msgstr "Garde d'enfants"
 
 msgid "Settings"
-msgstr "Settings"
+msgstr "Paramètres"
 
 msgid "New folder"
-msgstr "New folder"
+msgstr "Nouveau dossier"
 
 msgid "First name"
-msgstr "First name"
+msgstr "Prénom"
 
 msgid "Last name"
-msgstr "Last name"
+msgstr "Nom de famille"
 
 msgid "Full name"
-msgstr "Parents name"
+msgstr "Nom des parents"
 
 msgid "Address"
-msgstr "Address"
+msgstr "Adresse"
 
 msgid "Edit"
-msgstr "Edit"
+msgstr "Modifier"
 
 msgid "Delete"
-msgstr "Delete"
+msgstr "Supprimer"
 
 msgid "Save"
-msgstr "Save"
+msgstr "Enregistrer"
 
 msgid "Entries"
-msgstr "Entries"
+msgstr "Saisies"
 
 msgid "Are you sure you want to delete this folder ?"
-msgstr "Are you sure you want to delete this folder ?"
+msgstr "Etes-vous certain de vouloir supprimer ce dossier ?"
 
 msgid "Yes"
-msgstr "Yes"
+msgstr "Oui"
 
 msgid "No"
-msgstr "No"
+msgstr "Non"
 
 msgid "Date"
 msgstr "Date"
 
 msgid "Hours"
-msgstr "Hours"
+msgstr "Heures"
 
 msgid "Minutes"
 msgstr "Minutes"
 
 msgid "Date of birth"
-msgstr "Date of birth"
+msgstr "Date de naissance"
 
 msgid "Preschool"
-msgstr "Preschool"
+msgstr "Pré-scolaire"
 
 msgid "Kindergarten"
-msgstr "Kindergarten"
+msgstr "Parascolaire"
 
 msgid "Allergies"
 msgstr "Allergies"
 
 msgid "No known allergies"
-msgstr "No known allergies"
+msgstr "Pas d'allergies connues"
 
 msgid "Known allergies"
-msgstr "Known allergies"
+msgstr "Allergies connues"
 
 msgid "Phone number"
-msgstr "Phone number"
+msgstr "Téléphone"
 
 msgid "Misc. information"
-msgstr "Misc. information"
+msgstr "Informations diverses"
 
 msgid "Please select one option"
-msgstr "Please select one option"
+msgstr "Veuillez choisir une option"
 
 msgid "First name should not be empty."
-msgstr "First name should not be empty."
+msgstr "Le prénom doit être renseigné."
 
 msgid "Delete database"
-msgstr "Delete database"
+msgstr "Effecer la base de données"
 
 msgid "Database successfully deleted."
-msgstr "Database successfully deleted."
+msgstr "Base de données effacée."
 
 msgid "OK"
-msgstr "OK"
+msgstr "Ok"
 
 msgid "Noon"
-msgstr "Noon"
+msgstr "Midi"
 
 msgid "Evening"
-msgstr "Evening"
+msgstr "Soir"
 
 msgid "Night"
-msgstr "Night"
+msgstr "Nuit"
 
 msgid "Total pending billing :"
-msgstr "Total pending billing :"
+msgstr "Total en attente de facturation :"
+
 
 msgid "Lunch"
-msgstr "Lunch"
+msgstr "Dîner"
 
 msgid "Dinner"
-msgstr "Dinner"
+msgstr "Souper"
 
 msgid "New entry"
-msgstr "New entry"
+msgstr "Nouvelle saisie"
 
 msgid "Duration"
-msgstr "Duration"
+msgstr "Durée"
 
 msgid "Legend"
-msgstr "Legend"
+msgstr "Légende"
 
 msgid "Are you sure you want to delete this entry ?"
-msgstr "Are you sure you want to delete this entry ?"
+msgstr "Etes-vous certain de vouloir supprimer cette entrée ?"
