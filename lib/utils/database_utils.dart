@@ -56,6 +56,19 @@ class DatabaseUtils {
         misc TEXT
       )
       ''');
+
+    await db.execute('''
+      CREATE TABLE entry(
+        id INTEGER PRIMARY KEY,
+        folderId INTEGER,
+        date TEXT,
+        hours INTEGER,
+        minutes INTEGER,
+        lunch INTEGER,
+        diner INTEGER,
+        night INTEGER
+      )
+    ''');
   }
 
   static void _upgradeTo(int version, sqlite.Database db) async {}
