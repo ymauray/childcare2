@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/pages/entries_page.dart';
 import 'package:childcare2/pages/home_page.dart';
@@ -29,6 +31,21 @@ class ChildCareApp extends StatelessWidget {
         Locale('fr', ''),
         Locale('fr', 'CH'),
       ],
+      localeListResolutionCallback: (locales, supportedLocales) {
+        if (locales != null) {
+          for (var locale in locales) {
+            var supportedLocale = supportedLocales.where((element) => element.languageCode == locale.languageCode && element.countryCode == locale.countryCode);
+            if (supportedLocale.isNotEmpty) {
+              return supportedLocale.first;
+            }
+            supportedLocale = supportedLocales.where((element) => element.languageCode == locale.languageCode);
+            if (supportedLocale.isNotEmpty) {
+              return supportedLocale.first;
+            }
+          }
+        }
+        return null;
+      },
       routes: {
         '/': (context) => const HomePage(),
         '/entries': (context) => const EntriesPage(),
