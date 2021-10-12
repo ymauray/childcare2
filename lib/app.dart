@@ -1,16 +1,21 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:childcare2/i18n/child_care_localization.dart';
+import 'package:childcare2/pages/backup_and_restore.dart';
 import 'package:childcare2/pages/entries_page.dart';
 import 'package:childcare2/pages/home_page.dart';
 import 'package:childcare2/pages/settings_page.dart';
 import 'package:country_code_picker/country_localizations.dart';
-//import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class ChildCareApp extends StatelessWidget {
-  const ChildCareApp({Key? key}) : super(key: key);
+  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+
+  ChildCareApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -47,9 +52,27 @@ class ChildCareApp extends StatelessWidget {
         return null;
       },
       routes: {
-        '/': (context) => const HomePage(),
+        //'/': (context) => const HomePage(),
+        '/': (context) => FutureBuilder(
+              future: _fbApp,
+              builder: (context, snapshot) {
+                if (kDebugMode) {
+                  FirebaseAuth.instance.useAuthEmulator(Platform.isAndroid ? "10.0.2.2" : "localhost", 9099);
+                }
+                if (snapshot.hasError) {
+                  return const Text("Something went wrong.");
+                } else if (snapshot.hasData) {
+                  return const HomePage();
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
         '/entries': (context) => const EntriesPage(),
         '/settings': (context) => const SettingsPage(),
+        '/backup': (context) => const BackupAndRestorePage(),
       },
       onGenerateTitle: (context) => ChildCareLocalizations.of(context).t('Child Care'),
     );

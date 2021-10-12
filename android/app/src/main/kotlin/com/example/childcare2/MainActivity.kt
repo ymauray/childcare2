@@ -1,4 +1,4 @@
-package ch.frenchguy.childcare
+package ch.frenchguy.childcare2
 
 import io.flutter.embedding.android.FlutterActivity
 

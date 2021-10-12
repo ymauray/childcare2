@@ -1,6 +1,11 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/utils/database_utils.dart';
 import 'package:childcare2/utils/version_utils.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,6 +48,12 @@ class SettingsPage extends StatelessWidget {
                 const Divider(),
                 TextButton(
                   onPressed: () async {
+                    const String namespace = "simple-child-care";
+                    final String debugURL = Platform.isAndroid ? "http://10.0.2.2:9000?ns=$namespace" : "http://localhost:9000?ns=$namespace";
+                    const String productionURL = "https://simple-child-care-default-rtdb.europe-west1.firebasedatabase.app/";
+                    final String databaseURL = kDebugMode ? debugURL : productionURL;
+                    DatabaseReference _testRef = FirebaseDatabase(databaseURL: databaseURL).reference().child("test");
+                    _testRef.set("Hello world ${Random().nextInt(100)}");
                     await DatabaseUtils.deleteDatabase();
                     showDialog(
                       context: context,
