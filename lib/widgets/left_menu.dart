@@ -39,14 +39,14 @@ class LeftMenu extends StatelessWidget {
               Navigator.pushNamed(context, '/settings');
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.save_alt_outlined),
-            title: Text("Backup and restore".t(context)),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pushNamed('/backup');
-            },
-          ),
+          //ListTile(
+          //  leading: const Icon(Icons.save_alt_outlined),
+          //  title: Text("Backup and restore".t(context)),
+          //  onTap: () {
+          //    Navigator.of(context).pop();
+          //    Navigator.of(context).pushNamed('/backup');
+          //  },
+          //),
         ],
       ),
     );
