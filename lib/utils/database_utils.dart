@@ -62,6 +62,7 @@ class DatabaseUtils {
         id INTEGER PRIMARY KEY,
         folderId INTEGER,
         date TEXT,
+        preschool INTEGER,
         hours INTEGER,
         minutes INTEGER,
         lunch INTEGER,

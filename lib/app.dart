@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:childcare2/i18n/child_care_localization.dart';
+import 'package:childcare2/model/entry_model.dart';
 import 'package:childcare2/pages/backup_and_restore.dart';
 import 'package:childcare2/pages/entries_page.dart';
 import 'package:childcare2/pages/home_page.dart';
@@ -11,6 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 class ChildCareApp extends StatelessWidget {
   final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
@@ -70,7 +72,7 @@ class ChildCareApp extends StatelessWidget {
                 }
               },
             ),
-        '/entries': (context) => const EntriesPage(),
+        '/entries': (context) => ChangeNotifierProvider(create: (context) => EntryModel(), child: const EntriesPage()),
         '/settings': (context) => const SettingsPage(),
         '/backup': (context) => const BackupAndRestorePage(),
       },

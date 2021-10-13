@@ -1,5 +1,6 @@
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/model/entry.dart';
+import 'package:childcare2/model/folder.dart';
 import 'package:childcare2/widgets/custom_dropdown_button_form_field.dart';
 import 'package:childcare2/widgets/custom_row.dart';
 import 'package:childcare2/widgets/date_picker_form_field.dart';
@@ -11,10 +12,14 @@ extension DateTimeExt on DateTime {
 }
 
 class EntryForm extends StatelessWidget {
+  EntryForm({Key? key, this.entry, int? folderId, bool? preschool})
+      : assert((entry != null && folderId == null && preschool == null) || (entry == null && folderId != null && preschool == null)),
+        returnValue = Entry(folderId: folderId ?? entry!.folderId, preschool: preschool ?? entry!.preschool),
+        super(key: key);
+
   final Entry? entry;
-  final Entry returnValue = Entry();
+  final Entry returnValue;
   final _formKey = GlobalKey<FormState>();
-  EntryForm({Key? key, this.entry}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class EntryForm extends StatelessWidget {
             Navigator.of(context).pop(null);
           },
         ),
-        title: Text("New entry".t(context)),
+        title: Text(entry == null ? 'New entry'.t(context) : 'Edit entry'.t(context)),
         backgroundColor: t.colorScheme.primary,
         iconTheme: IconThemeData(color: t.colorScheme.onPrimary),
         actions: [
@@ -54,7 +59,7 @@ class EntryForm extends StatelessWidget {
           child: Column(
             children: [
               dateHoursMinutes(i18n, context),
-              buttons(i18n, t),
+              buttons(context),
               //pendingBalance(i18n),
             ],
           ),
@@ -73,7 +78,7 @@ class EntryForm extends StatelessWidget {
             child: DatePickerFormField(
               label: Text(i18n.t('Date')),
               nullable: false,
-              initialDate: DateTime.now().toStartOfDay(),
+              initialDate: entry?.date ?? DateTime.now().toStartOfDay(),
               onSaved: (date) {
                 if (date != null) {
                   returnValue.date = date;
@@ -94,7 +99,7 @@ class EntryForm extends StatelessWidget {
             child: CustomDropdownButtonFormField<int>(
               label: Text(i18n.t('Hours')),
               items: [0, 1, 2, 3, 4, 5, 6, 7, 8].map((value) => DropdownMenuItem(value: value, child: Text("$value"))).toList(),
-              value: 0,
+              value: entry?.hours ?? 0,
               onSaved: (value) {
                 returnValue.hours = value!;
               },
@@ -108,7 +113,7 @@ class EntryForm extends StatelessWidget {
             child: CustomDropdownButtonFormField<int>(
               label: Text(i18n.t('Minutes')),
               items: [0, 15, 30, 45].map((value) => DropdownMenuItem(value: value, child: Text("$value"))).toList(),
-              value: 0,
+              value: entry?.minutes ?? 0,
               onSaved: (value) {
                 returnValue.minutes = value!;
               },
@@ -119,14 +124,14 @@ class EntryForm extends StatelessWidget {
     );
   }
 
-  Widget buttons(ChildCareLocalizations i18n, ThemeData t) {
+  Widget buttons(BuildContext context) {
     return CustomRow(
       icon: null,
       child: Row(
         children: [
           Expanded(
             child: OutlinedToggleButtonFormField(
-              child: Text(i18n.t("Noon")),
+              child: Text('Lunch'.t(context)),
               isSelected: entry?.lunch ?? false,
               onSaved: (value) {
                 returnValue.lunch = value!;
@@ -139,7 +144,7 @@ class EntryForm extends StatelessWidget {
           ),
           Expanded(
             child: OutlinedToggleButtonFormField(
-              child: Text(i18n.t("Evening")),
+              child: Text('Dinner'.t(context)),
               isSelected: entry?.diner ?? false,
               onSaved: (value) {
                 returnValue.diner = value!;
@@ -152,26 +157,13 @@ class EntryForm extends StatelessWidget {
           ),
           Expanded(
             child: OutlinedToggleButtonFormField(
-              child: Text(i18n.t("Night")),
+              child: Text('Night'.t(context)),
               isSelected: entry?.night ?? false,
               onSaved: (value) {
                 returnValue.night = value!;
               },
             ),
             flex: 1,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Padding pendingBalance(ChildCareLocalizations i18n) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text("${i18n.t('Total pending billing :')} ${123.toStringAsFixed(2)}"),
           ),
         ],
       ),
