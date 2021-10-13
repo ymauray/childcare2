@@ -133,3 +133,45 @@ msgstr "Légende"
 
 msgid "Are you sure you want to delete this entry ?"
 msgstr "Etes-vous certain de vouloir supprimer cette entrée ?"
+
+msgid "Backup and restore"
+msgstr "Sauvegarde et récupération"
+
+msgid "You are authenticated"
+msgstr "Vous êtes authentifié"
+
+msgid "Log out"
+msgstr "Déconnexion"
+
+msgid "You are not authenticated"
+msgstr "Vous n'êtes pas authentifié"
+
+msgid "Log in"
+msgstr "Connexion"
+
+msgid "Create account"
+msgstr "Créer un compte"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Confirm password"
+msgstr "Confirmez le mot de passe"
+
+msgid "Backup"
+msgstr "Sauvegarde"
+
+msgid "Restore"
+msgstr "Récupération"
+
+msgid "Email cannot be empty"
+msgstr ""
+
+msgid "Password cannot be empty"
+msgstr ""
+
+msgid "Passwords are different"
+msgstr "Les mots de passe ne correspondent pas"

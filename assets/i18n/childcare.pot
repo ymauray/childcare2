@@ -132,3 +132,45 @@ msgstr ""
 
 msgid "Are you sure you want to delete this entry ?"
 msgstr ""
+
+msgid "Backup and restore"
+msgstr ""
+
+msgid "You are authenticated"
+msgstr ""
+
+msgid "Log out"
+msgstr ""
+
+msgid "You are not authenticated"
+msgstr ""
+
+msgid "Log in"
+msgstr ""
+
+msgid "Create account"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Confirm password"
+msgstr ""
+
+msgid "Backup"
+msgstr ""
+
+msgid "Restore"
+msgstr ""
+
+msgid "Email cannot be empty"
+msgstr ""
+
+msgid "Password cannot be empty"
+msgstr ""
+
+msgid "Passwords are different"
+msgstr ""

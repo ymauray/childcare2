@@ -1,3 +1,5 @@
+import 'package:childcare2/forms/create_account_form.dart';
+import 'package:childcare2/forms/login_form.dart';
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -8,13 +10,12 @@ class BackupAndRestorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final i18n = ChildCareLocalizations.of(context);
     final t = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          i18n.t('Settings'),
+          'Backup and restore'.t(context),
           style: TextStyle(color: t.colorScheme.onPrimary),
         ),
         backgroundColor: t.colorScheme.primary,
@@ -24,9 +25,9 @@ class BackupAndRestorePage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasData) {
-            return const LoggedInMenuWidget();
+            return BackupAndRestoreAuthenticatedPage(email: snapshot.data!.email!);
           } else {
-            return const NotLoggedInMenuWidget();
+            return const BackupAndRestoreNotAuthenticatedPage();
           }
         },
       ),
@@ -34,289 +35,135 @@ class BackupAndRestorePage extends StatelessWidget {
   }
 }
 
-class NotLoggedInMenuWidget extends StatefulWidget {
-  const NotLoggedInMenuWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<NotLoggedInMenuWidget> createState() => _NotLoggedInMenuWidgetState();
-}
-
-class _NotLoggedInMenuWidgetState extends State<NotLoggedInMenuWidget> {
-  bool showLoginForm = false;
-  bool showRegisterForm = false;
-  bool buttonsDisabled = false;
-  final _formKey = GlobalKey<FormState>();
-
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-
-  String email = "";
-  String password = "";
-  String errorMessage = "No error, everything is good !";
+class BackupAndRestoreNotAuthenticatedPage extends StatelessWidget {
+  const BackupAndRestoreNotAuthenticatedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 16,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: Text(
+            'You are not authenticated'.t(context),
+            style: Theme.of(context).textTheme.headline6,
           ),
-          showLoginForm || showRegisterForm
-              ? Container()
-              : Column(
-                  children: [
-                    Text(
-                      "You are not logged in".t(context),
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          showLoginForm = true;
-                          showRegisterForm = false;
-                        });
-                      },
-                      child: Text('Log in'.t(context)),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          showLoginForm = false;
-                          showRegisterForm = true;
-                        });
-                      },
-                      child: Text('Create account'.t(context)),
-                    ),
-                  ],
+        ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: Divider(
+            color: Colors.black,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  child: Text('Log in'.t(context)),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const LoginForm(),
+                      fullscreenDialog: true,
+                    ));
+                  },
                 ),
-          !showRegisterForm && !showLoginForm
-              ? Container()
-              : Form(
-                  key: _formKey,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Create account".t(context),
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                            labelText: 'email *',
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'email cannot be empty'.t(context);
-                            }
-                            if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
-                              return 'Not a valid email'.t(context);
-                            }
-                          },
-                          onSaved: (value) {
-                            email = value!;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        TextFormField(
-                          obscureText: true,
-                          controller: passwordController,
-                          decoration: const InputDecoration(
-                            labelText: 'password *',
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'password cannot be empty'.t(context);
-                            }
-                          },
-                          onSaved: (value) {
-                            password = value!;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        !showRegisterForm
-                            ? Container()
-                            : TextFormField(
-                                obscureText: true,
-                                controller: confirmPasswordController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Confim password *',
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'password cannot be empty'.t(context);
-                                  }
-                                  if (passwordController.text != confirmPasswordController.text) {
-                                    return 'password does not match'.t(context);
-                                  }
-                                },
-                              ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: showRegisterForm
-                                  ? ElevatedButton(
-                                      onPressed: buttonsDisabled
-                                          ? null
-                                          : () async {
-                                              if (_formKey.currentState!.validate()) {
-                                                _formKey.currentState!.save();
-                                                setState(() {
-                                                  buttonsDisabled = true;
-                                                });
-                                                FocusScope.of(context).unfocus();
-                                                try {
-                                                  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-                                                } on FirebaseAuthException catch (e) {
-                                                  if (e.code == 'weak-password') {
-                                                    setState(() {
-                                                      errorMessage = 'The password is too weak'.t(context);
-                                                      buttonsDisabled = false;
-                                                    });
-                                                  } else if (e.code == 'email-already-in-use') {
-                                                    setState(() {
-                                                      errorMessage = 'An account already exists for that email'.t(context);
-                                                      buttonsDisabled = false;
-                                                    });
-                                                  } else {
-                                                    setState(() {
-                                                      errorMessage = '${'An undefined error occured'.t(context)} : ${e.code}';
-                                                      buttonsDisabled = false;
-                                                    });
-                                                  }
-                                                } catch (e) {
-                                                  setState(() {
-                                                    errorMessage = '${'An undefined error occured'.t(context)} : ${e.toString()}';
-                                                    buttonsDisabled = false;
-                                                  });
-                                                }
-                                              }
-                                            },
-                                      child: Text(
-                                        'Create account'.t(context),
-                                      ),
-                                    )
-                                  : ElevatedButton(
-                                      onPressed: buttonsDisabled
-                                          ? null
-                                          : () async {
-                                              if (_formKey.currentState!.validate()) {
-                                                _formKey.currentState!.save();
-                                                setState(() {
-                                                  buttonsDisabled = true;
-                                                });
-                                                FocusScope.of(context).unfocus();
-                                                try {
-                                                  await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-                                                } on FirebaseAuthException catch (e) {
-                                                  if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-                                                    setState(() {
-                                                      errorMessage = 'Invalid credentials'.t(context);
-                                                      buttonsDisabled = false;
-                                                    });
-                                                  }
-                                                } catch (e) {
-                                                  setState(() {
-                                                    errorMessage = '${'An undefined error occured'.t(context)} : ${e.toString()}';
-                                                    buttonsDisabled = false;
-                                                  });
-                                                }
-                                              }
-                                            },
-                                      child: Text(
-                                        'Log in'.t(context),
-                                      ),
-                                    ),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: ElevatedButton(
-                                onPressed: buttonsDisabled
-                                    ? null
-                                    : () {
-                                        setState(() {
-                                          showRegisterForm = false;
-                                          showLoginForm = false;
-                                          email = "";
-                                          password = "";
-                                          passwordController.clear();
-                                          confirmPasswordController.clear();
-                                        });
-                                      },
-                                child: Text(
-                                  'Cancel'.t(context),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text(errorMessage),
-                      ],
-                    ),
-                  ),
-                )
-        ],
-      ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  child: Text('Create account'.t(context)),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CreateAccountForm(),
+                      fullscreenDialog: true,
+                    ));
+                  },
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }
 
-class LoggedInMenuWidget extends StatelessWidget {
-  const LoggedInMenuWidget({
-    Key? key,
-  }) : super(key: key);
+class BackupAndRestoreAuthenticatedPage extends StatelessWidget {
+  final String email;
+  const BackupAndRestoreAuthenticatedPage({Key? key, required this.email}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              'Backup'.t(context),
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: Text('You are authenticated'.t(context), style: Theme.of(context).textTheme.headline6),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: Text(email, style: Theme.of(context).textTheme.bodyText1),
+        ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: Divider(
+            color: Colors.black,
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              'Restore'.t(context),
-            ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {},
+                  child: Text(
+                    'Backup'.t(context),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {},
+                  child: Text(
+                    'Restore'.t(context),
+                  ),
+                ),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-            },
-            child: Text(
-              'Log out'.t(context),
-            ),
+        ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: Divider(
+            color: Colors.black,
           ),
-        ],
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                  },
+                  child: Text(
+                    'Log out'.t(context),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

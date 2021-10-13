@@ -132,3 +132,45 @@ msgstr "Legend"
 
 msgid "Are you sure you want to delete this entry ?"
 msgstr "Are you sure you want to delete this entry ?"
+
+msgid "Backup and restore"
+msgstr "Backup and restore"
+
+msgid "You are authenticated"
+msgstr "You are authenticated"
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "You are not authenticated"
+msgstr "You are not authenticated"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Create account"
+msgstr "Create account"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Confirm password"
+msgstr "Confirm password"
+
+msgid "Backup"
+msgstr "Backup"
+
+msgid "Restore"
+msgstr "Restore"
+
+msgid "Email cannot be empty"
+msgstr "Email cannot be empty"
+
+msgid "Password cannot be empty"
+msgstr "Password cannot be empty"
+
+msgid "Passwords are different"
+msgstr "Passwords are different"

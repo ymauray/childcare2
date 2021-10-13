@@ -6,16 +6,28 @@ import 'package:childcare2/pages/backup_and_restore.dart';
 import 'package:childcare2/pages/entries_page.dart';
 import 'package:childcare2/pages/home_page.dart';
 import 'package:childcare2/pages/settings_page.dart';
+import 'package:childcare2/utils/database_utils.dart';
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 class ChildCareApp extends StatelessWidget {
-  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+  final Future<FirebaseApp> _fbApp = DatabaseUtils.getDatabase()
+      .then((_) {
+        return FlutterLibphonenumber().init();
+      })
+      .then((_) => Firebase.initializeApp())
+      .then((snapshot) {
+        if (kDebugMode) {
+          FirebaseAuth.instance.useAuthEmulator(Platform.isAndroid ? "10.0.2.2" : "localhost", 9099);
+        }
+        return snapshot;
+      });
 
   ChildCareApp({Key? key}) : super(key: key);
 
@@ -54,13 +66,9 @@ class ChildCareApp extends StatelessWidget {
         return null;
       },
       routes: {
-        //'/': (context) => const HomePage(),
         '/': (context) => FutureBuilder(
               future: _fbApp,
               builder: (context, snapshot) {
-                if (kDebugMode) {
-                  FirebaseAuth.instance.useAuthEmulator(Platform.isAndroid ? "10.0.2.2" : "localhost", 9099);
-                }
                 if (snapshot.hasError) {
                   return const Text("Something went wrong.");
                 } else if (snapshot.hasData) {
