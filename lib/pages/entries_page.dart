@@ -18,19 +18,27 @@ class EntriesPage extends StatelessWidget {
     final i18n = ChildCareLocalizations.of(context);
     final t = Theme.of(context);
     final folder = ModalRoute.of(context)!.settings.arguments as Folder;
-    // Future.delayed(const Duration(seconds: 1)).then((_) {
-    //   context.read<EntryModel>().add(Entry());
-    // });
+
     context.read<EntryModel>().loadForFolder(folder.id!);
+
+    final ButtonStyle style = TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "${folder.childFirstName} ${folder.childLastName}",
-          style: TextStyle(color: t.colorScheme.onPrimary),
-        ),
-        backgroundColor: t.colorScheme.primary,
-        iconTheme: IconThemeData(color: t.colorScheme.onPrimary),
+        title: Text("${folder.childFirstName} ${folder.childLastName}"),
+        actions: [
+          TextButton(
+              style: style,
+              onPressed: () {
+                if (context.read<EntryModel>().count > 1) {}
+              },
+              child: Text(
+                'Create invoice'.t(context).toUpperCase(),
+                // style: TextStyle(
+                //   color: Theme.of(context).colorScheme.onPrimary,
+                // ),
+              ))
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
