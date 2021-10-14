@@ -3,6 +3,7 @@ import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/model/entry.dart';
 import 'package:childcare2/model/entry_model.dart';
 import 'package:childcare2/model/folder.dart';
+import 'package:childcare2/pages/not_implemented_yet.dart';
 import 'package:childcare2/utils/i18n_utils.dart';
 import 'package:childcare2/utils/int_ext.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +31,7 @@ class EntriesPage extends StatelessWidget {
           TextButton(
               style: style,
               onPressed: () {
-                if (context.read<EntryModel>().count > 1) {}
+                Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (context) => const NotImplementedYet()));
               },
               child: Text(
                 'Create invoice'.t(context).toUpperCase(),

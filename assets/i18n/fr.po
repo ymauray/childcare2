@@ -168,10 +168,19 @@ msgid "Restore"
 msgstr "Récupération"
 
 msgid "Email cannot be empty"
-msgstr ""
+msgstr "Email ne peut pas être vide"
 
 msgid "Password cannot be empty"
-msgstr ""
+msgstr "Mot de passe ne peut pas être vide"
 
 msgid "Passwords are different"
 msgstr "Les mots de passe ne correspondent pas"
+
+msgid "Invoices"
+msgstr "Factures"
+
+msgid "Create invoice"
+msgstr "Facturer"
+
+msgid "Not implemented yet"
+msgstr "Pas encore implémenté"

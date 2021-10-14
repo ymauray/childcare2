@@ -174,3 +174,12 @@ msgstr ""
 
 msgid "Passwords are different"
 msgstr ""
+
+msgid "Invoices"
+msgstr ""
+
+msgid "Create invoice"
+msgstr ""
+
+msgid "Not implemented yet"
+msgstr ""

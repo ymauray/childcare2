@@ -1,6 +1,7 @@
 import 'package:childcare2/forms/create_account_form.dart';
 import 'package:childcare2/forms/login_form.dart';
 import 'package:childcare2/i18n/child_care_localization.dart';
+import 'package:childcare2/pages/not_implemented_yet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,9 @@ class BackupAndRestoreAuthenticatedPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (context) => const NotImplementedYet()));
+                  },
                   child: Text(
                     'Backup'.t(context),
                   ),
@@ -131,7 +134,9 @@ class BackupAndRestoreAuthenticatedPage extends StatelessWidget {
               ),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (context) => const NotImplementedYet()));
+                  },
                   child: Text(
                     'Restore'.t(context),
                   ),

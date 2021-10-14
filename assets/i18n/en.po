@@ -174,3 +174,12 @@ msgstr "Password cannot be empty"
 
 msgid "Passwords are different"
 msgstr "Passwords are different"
+
+msgid "Invoices"
+msgstr "Invoices"
+
+msgid "Create invoice"
+msgstr "Create invoice"
+
+msgid "Not implemented yet"
+msgstr "Not implemented yet"
