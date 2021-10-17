@@ -42,10 +42,11 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: const LeftMenu(),
       body: ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            return folderTile(context, index, i18n, t);
-          }),
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return folderTile(context, index, i18n, t);
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -136,7 +137,10 @@ class _HomePageState extends State<HomePage> {
           case "delete":
             _showConfirmationDialog(data[index]).then((value) {
               if ((value != null) && (value)) {
-                DatabaseUtils.getDatabase().then((db) => {db.delete('folder', where: 'id = ${data[index].id}')});
+                DatabaseUtils.getDatabase().then((db) {
+                  db.delete('folder', where: 'id = ?', whereArgs: [data[index].id]);
+                  db.delete('entry', where: 'folderId = ?', whereArgs: [data[index].id]);
+                });
               }
             });
             break;

@@ -1,4 +1,5 @@
 import 'package:childcare2/i18n/child_care_localization.dart';
+import 'package:childcare2/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class LeftMenu extends StatelessWidget {
@@ -36,7 +37,13 @@ class LeftMenu extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, '/settings');
+              //Navigator.pushNamed(context, '/settings');
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SettingsPage(),
+                  fullscreenDialog: true,
+                ),
+              );
             },
           ),
           ListTile(

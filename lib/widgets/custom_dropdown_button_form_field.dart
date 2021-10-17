@@ -21,9 +21,12 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<T>(
+      // style
+      // decoration
+      isDense: false,
       focusNode: _hoursFocusNode,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(12, 17, 12, 18),
+        contentPadding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
         border: const OutlineInputBorder(),
         label: label,
       ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart' as sqlite;
 import 'package:path/path.dart';
 
@@ -68,6 +70,13 @@ class DatabaseUtils {
         lunch INTEGER,
         diner INTEGER,
         night INTEGER
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE settings(
+        key TEXT PRIMARY KEY,
+        value TEXT
       )
     ''');
   }

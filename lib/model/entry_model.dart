@@ -1,6 +1,8 @@
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:childcare2/model/entry.dart';
+import 'package:childcare2/model/settings.dart';
 import 'package:childcare2/utils/database_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -19,12 +21,13 @@ class EntryModel extends ChangeNotifier {
         /// Week-end : 8.0
         /// Lunch, diner : preschool 5.0, kindergarten 7.0
         /// Night : 20.0
+        inspect(settings);
         var weekDay = (entry.date.weekday != DateTime.sunday && entry.date.weekday != DateTime.saturday);
         return total +
-            (weekDay ? 7.0 : 8.0) * (entry.hours + entry.minutes / 60.0) +
-            (entry.lunch ? (entry.preschool ? 5.0 : 7.0) : 0.0) +
-            (entry.diner ? (entry.preschool ? 5.0 : 7.0) : 0.0) +
-            (entry.night ? 20 : 0.0);
+            (weekDay ? settings.hourlyWeekRate : settings.hourlyWeekendRate) * (entry.hours + entry.minutes / 60.0) +
+            (entry.lunch ? (entry.preschool ? settings.lunchPreSchool : settings.lunchKindergarten) : 0.0) +
+            (entry.diner ? (entry.preschool ? settings.dinerPreSchool : settings.dinerKindergarten) : 0.0) +
+            (entry.night ? settings.overnight : 0.0);
       });
 
   /// Add an Entry to the model

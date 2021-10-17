@@ -17,7 +17,6 @@ class EntriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = ChildCareLocalizations.of(context);
-    final t = Theme.of(context);
     final folder = ModalRoute.of(context)!.settings.arguments as Folder;
 
     context.read<EntryModel>().loadForFolder(folder.id!);
@@ -35,9 +34,6 @@ class EntriesPage extends StatelessWidget {
               },
               child: Text(
                 'Create invoice'.t(context).toUpperCase(),
-                // style: TextStyle(
-                //   color: Theme.of(context).colorScheme.onPrimary,
-                // ),
               ))
         ],
       ),
@@ -108,100 +104,120 @@ class EntriesPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      width: 8 + 48,
+                      width: 8 + 32,
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Container(height: 1, color: Colors.black),
-              ),
+              Container(height: 1, color: Colors.black),
               Consumer<EntryModel>(
                 builder: (context, model, child) => ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: model.count,
                     itemBuilder: (context, index) {
+                      final item = model.items[index];
                       return Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  DateFormat.yMMMMd(I18nUtils.locale).format(model.items[index].date),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Center(child: Text("${model.items[index].hours}h${model.items[index].minutes.toPaddedString(2)}")),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              SizedBox(
-                                width: 24,
-                                child: Center(child: Icon(model.items[index].lunch ? Icons.check_box_outlined : Icons.check_box_outline_blank)),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              SizedBox(
-                                width: 24,
-                                child: Center(child: Icon(model.items[index].diner ? Icons.check_box_outlined : Icons.check_box_outline_blank)),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              SizedBox(
-                                width: 24,
-                                child: Center(child: Icon(model.items[index].night ? Icons.check_box_outlined : Icons.check_box_outline_blank)),
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              PopupMenuButton<String>(
-                                itemBuilder: (context) => <PopupMenuEntry<String>>[
-                                  PopupMenuItem<String>(value: "edit", child: Text(i18n.t("Edit"))),
-                                  PopupMenuItem<String>(value: "delete", child: Text(i18n.t("Delete"), style: const TextStyle(color: Colors.red))),
-                                ],
-                                onSelected: (result) {
-                                  switch (result) {
-                                    case "edit":
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => EntryForm(entry: Entry.clone(model.items[index])),
+                          Dismissible(
+                              key: UniqueKey(),
+                              direction: DismissDirection.endToStart,
+                              confirmDismiss: _showDismissConfirmationDialog(context),
+                              background: Container(
+                                  color: Colors.red,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                                        child: Text(
+                                          'Delete'.t(context),
+                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.white),
                                         ),
-                                      ).then((entry) {
-                                        if (entry != null) {
-                                          entry.id = model.items[index].id;
-                                          context.read<EntryModel>().update(entry!);
-                                        }
-                                      });
-                                      break;
-                                    case "delete":
-                                      _showConfirmationDialog(context).then((value) {
-                                        if ((value != null) && (value)) {
-                                          context.read<EntryModel>().remove(model.items[index]);
-                                        }
-                                      });
-                                      break;
-                                  }
+                                      )
+                                    ],
+                                  )),
+                              onDismissed: (direction) {
+                                context.read<EntryModel>().remove(item);
+                              },
+                              child: GestureDetector(
+                                onTap: () {
+                                  editEntry(context, item);
                                 },
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 8),
-                                  child: Container(height: 1, color: Colors.grey),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          DateFormat.yMMMMd(I18nUtils.locale).format(item.date),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Center(child: Text("${item.hours}h${item.minutes.toPaddedString(2)}")),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      SizedBox(
+                                        width: 24,
+                                        child: Center(child: Icon(item.lunch ? Icons.check_box_outlined : Icons.check_box_outline_blank)),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      SizedBox(
+                                        width: 24,
+                                        child: Center(child: Icon(item.diner ? Icons.check_box_outlined : Icons.check_box_outline_blank)),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      SizedBox(
+                                        width: 24,
+                                        child: Center(child: Icon(item.night ? Icons.check_box_outlined : Icons.check_box_outline_blank)),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      PopupMenuButton<String>(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Icon(Icons.adaptive.more),
+                                        ),
+                                        padding: EdgeInsets.zero,
+                                        itemBuilder: (context) => <PopupMenuEntry<String>>[
+                                          PopupMenuItem<String>(value: "edit", child: Text(i18n.t("Edit"))),
+                                          PopupMenuItem<String>(value: "delete", child: Text(i18n.t("Delete"), style: const TextStyle(color: Colors.red))),
+                                        ],
+                                        onSelected: (result) {
+                                          switch (result) {
+                                            case "edit":
+                                              editEntry(context, item);
+                                              break;
+                                            case "delete":
+                                              _showConfirmationDialog(context).then((value) {
+                                                if ((value != null) && (value)) {
+                                                  context.read<EntryModel>().remove(item);
+                                                }
+                                              });
+                                              break;
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                              )),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(height: 1, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -221,7 +237,7 @@ class EntriesPage extends StatelessWidget {
                     const Icon(Icons.nightlight_round_sharp),
                     Text(" = ${'Dinner'.t(context)}, "),
                     const Icon(Icons.night_shelter_outlined),
-                    Text(" = ${'Night'.t(context)}, "),
+                    Text(" = ${'Night'.t(context)}"),
                   ],
                 ),
               ),
@@ -250,6 +266,12 @@ class EntriesPage extends StatelessWidget {
     );
   }
 
+  ConfirmDismissCallback? _showDismissConfirmationDialog(BuildContext context) {
+    return (DismissDirection direction) {
+      return _showConfirmationDialog(context);
+    };
+  }
+
   Future<bool?> _showConfirmationDialog(BuildContext context) async {
     return showDialog<bool>(
       context: context,
@@ -265,13 +287,30 @@ class EntriesPage extends StatelessWidget {
                 },
                 child: Text('Yes'.t(context))),
             TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                },
-                child: Text('No'.t(context))),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text(
+                'No'.t(context),
+              ),
+            ),
           ],
         );
       },
     );
+  }
+
+  void editEntry(BuildContext context, Entry item) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EntryForm(entry: Entry.clone(item)),
+      ),
+    ).then((entry) {
+      if (entry != null) {
+        entry.id = item.id;
+        context.read<EntryModel>().update(entry!);
+      }
+    });
   }
 }

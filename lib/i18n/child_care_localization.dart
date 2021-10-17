@@ -45,7 +45,7 @@ class ChildCareLocalizations {
     final r = RegExp(r'^No translation was found for msgid "(.*)" in msgctxt "(.*)" and domain "(.*)"$');
     final matches = r.firstMatch(message);
     var msgid = matches!.group(1);
-    print("msgid \"$msgid\"\nmsgstr \"\"\n \n");
+    //print("msgid \"$msgid\"\nmsgstr \"\"\n \n");
   }));
   ChildCareLocalizations(String poContent) {
     _gt.addLocale(gettext_parser.po.parse(poContent));

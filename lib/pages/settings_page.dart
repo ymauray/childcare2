@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:childcare2/forms/settings_form.dart';
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/utils/database_utils.dart';
 import 'package:childcare2/utils/version_utils.dart';
@@ -46,6 +47,7 @@ class SettingsPage extends StatelessWidget {
                   child: Text(VersionUtils.version + ' (' + VersionUtils.buildNumber + ')'),
                 ),
                 const Divider(),
+                const SettingsForm(),
                 TextButton(
                   onPressed: () async {
                     const String namespace = "simple-child-care";
