@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,11 @@ void main() async {
   VersionUtils.packageInfo = packageInfo;
 
   await DatabaseUtils.getDatabase();
-  await settings.load();
+  try {
+    await settings.load();
+  } on DatabaseException {
+    /// Nothing to do
+  }
   await FlutterLibphonenumber().init();
   await Firebase.initializeApp();
   if (kDebugMode) {

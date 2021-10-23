@@ -13,8 +13,8 @@ class SettingsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-
     final _future = settings.load();
+    final _focusNode = FocusNode();
 
     return Form(
       key: _formKey,
@@ -39,7 +39,7 @@ class SettingsForm extends StatelessWidget {
                                 alignLabelWithHint: true,
                               ),
                               validator: (value) {
-                                if (value == null || value!.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'This value cannot be empty'.t(context);
                                 }
                               },
@@ -61,7 +61,7 @@ class SettingsForm extends StatelessWidget {
                                 alignLabelWithHint: true,
                               ),
                               validator: (value) {
-                                if (value == null || value!.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'This value cannot be empty'.t(context);
                                 }
                               },
@@ -84,7 +84,7 @@ class SettingsForm extends StatelessWidget {
                                 alignLabelWithHint: true,
                               ),
                               validator: (value) {
-                                if (value == null || value!.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'This value cannot be empty'.t(context);
                                 }
                               },
@@ -106,7 +106,7 @@ class SettingsForm extends StatelessWidget {
                                 alignLabelWithHint: true,
                               ),
                               validator: (value) {
-                                if (value == null || value!.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'This value cannot be empty'.t(context);
                                 }
                               },
@@ -129,7 +129,7 @@ class SettingsForm extends StatelessWidget {
                                 alignLabelWithHint: true,
                               ),
                               validator: (value) {
-                                if (value == null || value!.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'This value cannot be empty'.t(context);
                                 }
                               },
@@ -151,7 +151,7 @@ class SettingsForm extends StatelessWidget {
                                 alignLabelWithHint: true,
                               ),
                               validator: (value) {
-                                if (value == null || value!.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'This value cannot be empty'.t(context);
                                 }
                               },
@@ -174,7 +174,7 @@ class SettingsForm extends StatelessWidget {
                                 alignLabelWithHint: true,
                               ),
                               validator: (value) {
-                                if (value == null || value!.isEmpty) {
+                                if (value == null || value.isEmpty) {
                                   return 'This value cannot be empty'.t(context);
                                 }
                               },
@@ -197,6 +197,7 @@ class SettingsForm extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 32),
                               child: ElevatedButton(
+                                focusNode: _focusNode,
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState!.save();
@@ -206,6 +207,7 @@ class SettingsForm extends StatelessWidget {
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
+                                        _focusNode.requestFocus();
                                         return const SettingsSuccessfullyUpdatedDialog();
                                       },
                                     );

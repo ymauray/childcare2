@@ -1,6 +1,7 @@
 import 'package:childcare2/forms/folder_form.dart';
 import 'package:childcare2/i18n/child_care_localization.dart';
 import 'package:childcare2/model/folder.dart';
+import 'package:childcare2/pages/info.dart';
 import 'package:childcare2/pages/not_implemented_yet.dart';
 import 'package:childcare2/utils/database_utils.dart';
 import 'package:childcare2/widgets/left_menu.dart';
@@ -116,6 +117,9 @@ class _HomePageState extends State<HomePage> {
           case "invoices":
             Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (context) => const NotImplementedYet()));
             break;
+          case "info":
+            Navigator.of(context).push(MaterialPageRoute(fullscreenDialog: true, builder: (context) => Info(folder: data[index])));
+            break;
           case "edit":
             Navigator.push(
                 context,
@@ -150,6 +154,7 @@ class _HomePageState extends State<HomePage> {
         PopupMenuItem<String>(value: "entries", child: Text(i18n.t("Entries"))),
         PopupMenuItem<String>(value: "invoices", child: Text(i18n.t("Invoices"))),
         const PopupMenuItem(enabled: false, height: 1, child: Divider()),
+        PopupMenuItem<String>(value: "info", child: Text(i18n.t("Info"))),
         PopupMenuItem<String>(value: "edit", child: Text(i18n.t("Edit"))),
         PopupMenuItem<String>(value: "delete", child: Text(i18n.t("Delete"), style: const TextStyle(color: Colors.red))),
       ],
